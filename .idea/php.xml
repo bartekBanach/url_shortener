@@ -6,11 +6,12 @@
   <component name="PHPCSFixerOptionsConfiguration">
     <option name="allowRiskyRules" value="true" />
     <option name="codingStandard" value="Symfony" />
+    <option name="rulesetPath" value="$PROJECT_DIR$/vendor/escapestudios/symfony2-coding-standard" />
     <option name="transferred" value="true" />
   </component>
   <component name="PHPCodeSnifferOptionsConfiguration">
     <option name="codingStandard" value="Custom" />
-    <option name="customRuleset" value="$PROJECT_DIR$/vendor/escapestudios/symfony2-coding-standard/Symfony" />
+    <option name="customRuleset" value="$PROJECT_DIR$/vendor/escapestudios/symfony2-coding-standard" />
     <option name="highlightLevel" value="WARNING" />
     <option name="installedPaths" value="C:\xampp\htdocs\symfony-test\vendor\escapestudios\symfony2-coding-standard" />
     <option name="showSniffs" value="true" />
@@ -120,9 +121,7 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/symfony/doctrine-bridge" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/migrations" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/dependency-injection" />
       <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/config" />
@@ -176,6 +175,12 @@
       <path value="$PROJECT_DIR$/vendor/escapestudios/symfony2-coding-standard" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
       <path value="$PROJECT_DIR$/vendor/rector/rector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/migrations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

@@ -7,10 +7,10 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "doctrine/dbal": "^3",
-        "doctrine/doctrine-bundle": "^2.12",
+        "doctrine/annotations": "^2.0",
+        "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
-        "doctrine/orm": "^3.2",
+        "doctrine/orm": "^2.17",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.29",
         "symfony/asset": "6.4.*",
@@ -85,8 +85,6 @@
             "@auto-scripts"
         ],
         "static-analysis": [
-            "./vendor/bin/phpcs --config-set installed_paths vendor/escapestudios/symfony2-coding-standard",
-            "./vendor/bin/phpcs --config-set default_standard Symfony",
             "./vendor/bin/phpcs --standard=Symfony src/ --ignore=Kernel.php",
             "./vendor/bin/phpcbf --standard=Symfony src/ --ignore=Kernel.php",
             "./vendor/bin/php-cs-fixer fix src/ --rules=@Symfony,@PSR1,@PSR2,@PSR12",
@@ -106,6 +104,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
         "escapestudios/symfony2-coding-standard": "^3.13",
         "friendsofphp/php-cs-fixer": "^3.61",
         "phpunit/phpunit": "^9.5",
@@ -114,7 +113,7 @@
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "^1.60",
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"
