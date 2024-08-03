@@ -6,25 +6,30 @@
 
 {% block body %}
     <h1 class="text-2xl font-bold mb-4">{{ 'title.url_list'|trans }}</h1>
-    {% if urls is defined and urls|length %}
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="text-center my-4">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-200">
                 <thead>
                 <tr class="w-full bg-gray-100 border-b">
-                    <th class="py-2 px-4 text-left">{{ 'label.id'|trans }}</th>
-                    <th class="py-2 px-4 text-left">{{ 'label.long_url'|trans }}</th>
-                    <th class="py-2 px-4 text-left">{{ 'label.short_url'|trans }}</th>
-                    <th class="py-2 px-4 text-left">{{ 'label.created_at'|trans }}</th>
+                    <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'url.id') }}</th>
+                    <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.long_url'|trans, 'url.longUrl') }}</th>
+                    <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.short_url'|trans, 'url.shortUrl') }}</th>
+                    <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'url.createdAt') }}</th>
                     <th class="py-2 px-4 text-left">{{ 'label.actions'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for url in urls %}
+                {% for url in pagination.items %}
                     <tr class="border-b">
                         <td class="py-2 px-4">{{ url.id }}</td>
                         <td class="py-2 px-4 truncate">{{ url.longUrl }}</td>
                         <td class="py-2 px-4">{{ url.shortUrl }}</td>
-                        <td class="py-2 px-4">{{ url.createdAt|date('Y/m/d') }}</td>
+                        <td class="py-2 px-4">{{ url.createdAt|format_date('long') }}</td>
                         <td class="py-2 px-4">
                             <a href="{{ path('url_show', {id: url.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.view'|trans }}">
                                 {{ 'action.view'|trans }}
@@ -35,6 +40,11 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="text-center my-4">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
     {% else %}
         <p class="text-gray-600 mt-4">
             {{ 'message.empty_list'|trans }}
