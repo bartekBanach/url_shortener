@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="text-2xl font-bold mb-4">{{ 'title.url_list'|trans }}</h1>
+    <h1 class=" font-bold mb-4">{{ 'title.url_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="text-center my-4">
             {{ knp_pagination_render(pagination) }}
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200">
+        <div class="overflow-x-auto p-5">
+            <table class=" bg-white min-w-full  border-2 border-black rounded-md shadow-md">
                 <thead>
                 <tr class="w-full bg-gray-100 border-b">
                     <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'url.id') }}</th>
@@ -33,6 +33,12 @@
                         <td class="py-2 px-4">
                             <a href="{{ path('url_show', {id: url.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.view'|trans }}">
                                 {{ 'action.view'|trans }}
+                            </a>
+                            <a href="{{ path('url_edit', {id: url.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.edit'|trans }}">
+                                {{ 'action.edit'|trans }}
+                            </a>
+                            <a href="{{ path('url_delete', {id: url.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.delete'|trans }}">
+                                {{ 'action.delete'|trans }}
                             </a>
                         </td>
                     </tr>
