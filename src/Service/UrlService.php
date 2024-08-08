@@ -7,8 +7,6 @@ namespace App\Service;
 
 use App\Entity\Url;
 use App\Repository\UrlRepository;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -54,31 +52,41 @@ class UrlService implements UrlServiceInterface
         );
     }
 
-
     /**
      * Save entity.
      *
      * @param Url $url Url entity
-     *
      */
     public function save(Url $url): void
     {
         $url->setCreatedAt(new \DateTimeImmutable());
         $this->urlRepository->save($url);
+
+        if (null === $url->getShortUrl()) {
+            $url->setShortUrl($url->getId());
+            $this->urlRepository->save($url);
+        }
     }
-
-
 
     /**
      * Delete Url entity.
      *
      * @param Url $url Url entity
-     *
-     * @return void
      */
     public function delete(Url $url): void
     {
         $this->urlRepository->delete($url);
+    }
 
+    /**
+     * Find Url entity by shortened Url code.
+     *
+     * @param string $shortUrl Shortened Url code
+     *
+     * @return Url|null Url entity
+     */
+    public function findUrlByShortUrl(string $shortUrl): ?Url
+    {
+        return $this->urlRepository->findOneBy(['shortUrl' => $shortUrl]);
     }
 }

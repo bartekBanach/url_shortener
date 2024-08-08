@@ -30,6 +30,15 @@ interface UrlServiceInterface
     public function delete(Url $url): void;
 
     /**
+     * Find Url entity by shortened Url code.
+     *
+     * @param string $shortUrl Shortened Url code
+     *
+     * @return Url|null Url entity
+     */
+    public function findUrlByShortUrl(string $shortUrl): ?Url;
+
+    /**
      * Get paginated list.
      *
      * @param int $page Page number
@@ -38,3 +47,4 @@ interface UrlServiceInterface
      */
     public function getPaginatedList(int $page): PaginationInterface;
 }
+

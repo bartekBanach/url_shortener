@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.url_shortener'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="font-bold mb-4">{{ 'title.url_shortener'|trans }}</h1>
+
+    {{ form_start(form, {'attr': {'class': 'text-center'}}) }}
+
+    <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+        <h2 class="text-lg font-semibold mb-4">{{ 'form.title'|trans }}</h2>
+        {{ form_widget(form) }}
+
+        <div class="text-center mt-4">
+            <input type="submit" value="{{ 'action.shorten_url'|trans }}" class="btn btn-primary"/>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ path('url_index') }}" class="btn btn-link">
+            {{ 'action.go_to_list'|trans }}
+        </a>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -158,7 +158,7 @@ class UrlController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/url/{id}/delete', name: 'url_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[Route('/{id}/delete', name: 'url_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Url $url): Response
     {
         $form = $this->createForm(FormType::class, $url, [
