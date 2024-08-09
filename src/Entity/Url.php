@@ -8,6 +8,7 @@ namespace App\Entity;
 use App\Repository\UrlRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Url.
@@ -46,6 +47,7 @@ class Url
      * @psalm-suppress PropertyNotSetInConstructor
      */
     #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
     /**

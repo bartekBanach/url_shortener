@@ -24,10 +24,16 @@ interface UrlServiceInterface
      * Delete Url entity.
      *
      * @param Url $url Url entity
-     *
-     * @return void
      */
     public function delete(Url $url): void;
+
+    /**
+     * Generate short url code for new Url entity.
+     *
+     * @return string $code
+ */
+    public function generateShortUrlCode(): string;
+
 
     /**
      * Find Url entity by shortened Url code.
@@ -47,4 +53,3 @@ interface UrlServiceInterface
      */
     public function getPaginatedList(int $page): PaginationInterface;
 }
-

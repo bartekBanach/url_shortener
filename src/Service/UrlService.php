@@ -59,13 +59,23 @@ class UrlService implements UrlServiceInterface
      */
     public function save(Url $url): void
     {
-        $url->setCreatedAt(new \DateTimeImmutable());
         $this->urlRepository->save($url);
 
         if (null === $url->getShortUrl()) {
             $url->setShortUrl($url->getId());
             $this->urlRepository->save($url);
         }
+    }
+
+
+    /**
+     * Generate short url code for new Url entity.
+     *
+     * @return string $code
+     */
+    public function generateShortUrlCode(): string
+    {
+        return bin2hex(random_bytes(6));
     }
 
     /**
