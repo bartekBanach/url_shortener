@@ -1,38 +1,13 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}
-    {{ 'title.url_details'|trans({'%id%': url.id|default('')}) }}
-{% endblock %}
-
-{% block body %}
-    <h1 class="text-2xl font-bold mb-4">{{ 'title.url_details'|trans({'%id%': url.id|default('')}) }}</h1>
-    {% if url is defined and url %}
-        <dl class="space-y-2">
-            <div class="flex justify-between">
-                <dt class="font-semibold">{{ 'label.id'|trans }}</dt>
-                <dd>{{ url.id }}</dd>
-            </div>
-            <div class="flex justify-between">
-                <dt class="font-semibold">{{ 'label.long_url'|trans }}</dt>
-                <dd class="truncate">{{ url.longUrl }}</dd>
-            </div>
-            <div class="flex justify-between">
-                <dt class="font-semibold">{{ 'label.short_url'|trans }}</dt>
-                <dd>{{ url.shortUrl }}</dd>
-            </div>
-            <div class="flex justify-between">
-                <dt class="font-semibold">{{ 'label.created_at'|trans }}</dt>
-                <dd>{{ url.createdAt|date('Y/m/d') }}</dd>
-            </div>
-        </dl>
-        <p class="mt-4">
-            <a href="{{ path('url_index') }}" class="text-blue-500 hover:underline" title="{{ 'action.back_to_list'|trans }}">
-                {{ 'action.back_to_list'|trans }}
-            </a>
-        </p>
-    {% else %}
-        <p class="text-gray-600 mt-4">
-            {{ 'message.record_not_found'|trans }}
-        </p>
-    {% endif %}
-{% endblock %}
+{% include 'default/_crud_show.html.twig' with {
+    page_title: 'title.url_details'|trans({'%id%': url.id|default('')}),
+    item: url,
+    fields: ['id', 'longUrl', 'shortUrl', 'createdAt'],
+    labels: {
+        'id': 'label.id',
+        'longUrl': 'label.long_url',
+        'shortUrl': 'label.short_url',
+        'createdAt': 'label.created_at'
+    },
+    dateFields: ['createdAt'],
+    back_to_list_path: path('url_index')
+} %}

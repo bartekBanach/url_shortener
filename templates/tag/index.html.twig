@@ -1,0 +1,15 @@
+{% include 'default/_crud_list.html.twig' with {
+    entity: 'tag',
+    page_title: 'title.tag_list'|trans,
+    pagination: pagination,
+    columns: [
+        { 'label': 'label.id'|trans, 'field': 'id' },
+        { 'label': 'label.title'|trans, 'field': 'title' },
+        { 'label': 'label.created_at'|trans, 'field': 'createdAt' },
+        { 'label': 'label.updated_at'|trans, 'field': 'updatedAt' },
+    ],
+    view_route: 'tag_show',
+    edit_route: 'tag_edit',
+    delete_route: 'tag_delete',
+    back_to_list_path: 'tag_index',
+} %}

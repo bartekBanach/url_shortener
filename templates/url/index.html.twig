@@ -1,59 +1,15 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}
-    {{ 'title.url_list'|trans }}
-{% endblock %}
-
-{% block body %}
-    <h1 class=" font-bold mb-4">{{ 'title.url_list'|trans }}</h1>
-    {% if pagination is defined and pagination.items|length %}
-
-        <div class="text-center my-4">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
-        <div class="overflow-x-auto p-5">
-            <table class=" bg-white min-w-full  border-2 border-black rounded-md shadow-md">
-                <thead>
-                <tr class="w-full bg-gray-100 border-b">
-                    <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'url.id') }}</th>
-                    <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.long_url'|trans, 'url.longUrl') }}</th>
-                    <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.short_url'|trans, 'url.shortUrl') }}</th>
-                    <th class="py-2 px-4 text-left">{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'url.createdAt') }}</th>
-                    <th class="py-2 px-4 text-left">{{ 'label.actions'|trans }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for url in pagination.items %}
-                    <tr class="border-b">
-                        <td class="py-2 px-4">{{ url.id }}</td>
-                        <td class="py-2 px-4 truncate">{{ url.longUrl }}</td>
-                        <td class="py-2 px-4">{{ url.shortUrl }}</td>
-                        <td class="py-2 px-4">{{ url.createdAt|format_date('long') }}</td>
-                        <td class="py-2 px-4">
-                            <a href="{{ path('url_show', {id: url.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.view'|trans }}">
-                                {{ 'action.view'|trans }}
-                            </a>
-                            <a href="{{ path('url_edit', {id: url.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.edit'|trans }}">
-                                {{ 'action.edit'|trans }}
-                            </a>
-                            <a href="{{ path('url_delete', {id: url.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.delete'|trans }}">
-                                {{ 'action.delete'|trans }}
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="text-center my-4">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
-    {% else %}
-        <p class="text-gray-600 mt-4">
-            {{ 'message.empty_list'|trans }}
-        </p>
-    {% endif %}
-{% endblock %}
+{% include 'default/_crud_list.html.twig' with {
+    entity: 'url',
+    page_title: 'title.url_list'|trans,
+    pagination: pagination,
+    columns: [
+        { 'label': 'label.id'|trans, 'field': 'id' },
+        { 'label': 'label.long_url'|trans, 'field': 'longUrl' },
+        { 'label': 'label.short_url'|trans, 'field': 'shortUrl' },
+        { 'label': 'label.created_at'|trans, 'field': 'createdAt' },
+    ],
+    view_route: 'url_show',
+    edit_route: 'url_edit',
+    delete_route: 'url_delete',
+    back_to_list_path: 'url_index',
+} %}

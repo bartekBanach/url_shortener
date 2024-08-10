@@ -1,0 +1,13 @@
+{% include 'default/_crud_show.html.twig' with {
+    page_title: 'title.tag_details'|trans({'%id%': tag.id|default('')}),
+    item: tag,
+    fields: ['id', 'title', 'createdAt', 'updatedAt'],
+    labels: {
+        'id': 'label.id',
+        'title': 'label.title',
+        'createdAt': 'label.created_at',
+        'updatedAt': 'label.updated_at'
+    },
+    dateFields: ['createdAt', 'updatedAt'],
+    back_to_list_path: path('tag_index')
+} %}

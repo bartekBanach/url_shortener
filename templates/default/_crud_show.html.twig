@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ page_title|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="display-4 mb-4">{{ page_title|trans }}</h1>
+
+        {% if item is defined and item %}
+            <dl class="row">
+                {% for field in fields %}
+                    <div class="col-sm-3 font-weight-bold">
+                        {{ labels[field]|trans }}
+                    </div>
+                    <div class="col-sm-9">
+                        {% if field in dateFields %}
+                            {{ attribute(item, field)|date('Y/m/d') }}
+                        {% else %}
+                            <span class="text-truncate d-inline-block" style="max-width: 300px;">
+                                {{ attribute(item, field) }}
+                            </span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </dl>
+
+            <div class="mt-4">
+                <a href="{{ back_to_list_path }}" class="btn btn-primary" title="{{ 'action.back_to_list'|trans }}">
+                    {{ 'action.back_to_list'|trans }}
+                </a>
+            </div>
+        {% else %}
+            <div class="alert alert-warning mt-4">
+                {{ 'message.record_not_found'|trans }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
