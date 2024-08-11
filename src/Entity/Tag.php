@@ -10,6 +10,7 @@ use App\Repository\TagRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Tag.
@@ -32,6 +33,9 @@ class Tag
      * @var string|null the title of the tag
      */
     #[ORM\Column(length: 64)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 
     /**
@@ -40,6 +44,7 @@ class Tag
      * @var \DateTimeImmutable|null the date and time when the tag was created
      */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -49,6 +54,7 @@ class Tag
      * @var \DateTimeImmutable|null the date and time when the tag was last updated
      */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
@@ -58,6 +64,8 @@ class Tag
      * @var string|null the slug generated from the title
      */
     #[ORM\Column(length: 64)]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 

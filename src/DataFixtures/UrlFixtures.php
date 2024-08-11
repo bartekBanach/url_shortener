@@ -36,15 +36,23 @@ class UrlFixtures extends AbstractBaseFixtures
     protected function loadData(): void
     {
 
-        for ($i = 0; $i < 10; ++$i) {
+        $this->createMany(20, 'urls', function (int $i) {
             $url = new Url();
             $url->setLongUrl($this->urlsList[array_rand($this->urlsList)]); // Select a random URL from the list
             $url->setShortUrl($this->faker->lexify('??????')); // Generates a random 6-character short URL code
             $url->setCreatedAt(
                 \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
-            $this->manager->persist($url);
-        }
+
+            // Assign random tags to the URL
+            $randomTags = $this->getRandomReferences('tags', mt_rand(1, 3)); // Get 1 to 3 random tags
+            foreach ($randomTags as $tag) {
+                $url->addTag($tag);
+            }
+
+
+            return $url;
+        });
 
         $this->manager->flush();
     }

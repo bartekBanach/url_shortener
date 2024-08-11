@@ -35,9 +35,14 @@ class TagFixtures extends AbstractBaseFixtures
      */
     protected function loadData(): void
     {
-        for ($i = 0; $i < 10; ++$i) {
+
+        if (null === $this->manager || null === $this->faker) {
+            return;
+        }
+
+        $this->createMany(10, 'tags', function (int $i) {
             $tag = new Tag();
-            $title = $this->tagTitles[array_rand($this->tagTitles)];
+            $title = $this->tagTitles[$i];
             $tag->setTitle($title);
 
             // Generate a random createdAt date
@@ -53,8 +58,10 @@ class TagFixtures extends AbstractBaseFixtures
             $tag->setCreatedAt($createdAt);
             $tag->setUpdatedAt($updatedAt);
 
-            $this->manager->persist($tag);
-        }
+
+            return $tag;
+        });
+
         $this->manager->flush();
     }
 }

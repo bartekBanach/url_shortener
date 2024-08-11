@@ -19,7 +19,12 @@
                 <tr class="w-full bg-gray-100 border-b">
                     {% for column in columns %}
                         <th class="py-2 px-4 text-left">
-                            {{ knp_pagination_sortable(pagination, column.label|trans, entity ~ '.' ~ column.field) }}
+                            {% if column.field == 'tags' %}
+                                {{ column.label }}
+                            {%  else %}
+                                {{ knp_pagination_sortable(pagination, column.label|trans, entity ~ '.' ~ column.field) }}
+
+                            {% endif %}
                         </th>
                     {% endfor %}
                     <th class="py-2 px-4 text-left">{{ 'label.actions'|trans }}</th>
@@ -30,10 +35,24 @@
                     <tr class="border-b">
                         {% for column in columns %}
                             <td class="py-2 px-4">
+                                {% set fieldValue = attribute(item, column.field) %}
+
                                 {% if column.field == 'createdAt' or column.field == 'updatedAt' %}
-                                    {{ attribute(item, column.field) | format_date('long') }}
+                                    {{ fieldValue | format_date('long') }}
+
+                                {% elseif fieldValue is iterable %}
+                                    <div>
+                                        {% for item in fieldValue %}
+                                            <span> {{ item.title }}{% if not loop.last %}, {% endif %}
+
+                                            </span>
+                                        {% else %}
+                                            <span>No items available</span>
+                                        {% endfor %}
+                                    </div>
+
                                 {% else %}
-                                    {{ attribute(item, column.field) }}
+                                    {{ fieldValue }}
                                 {% endif %}
                             </td>
                         {% endfor %}
