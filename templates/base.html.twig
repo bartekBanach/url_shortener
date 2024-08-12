@@ -20,19 +20,35 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a href="{{ path('home') }}" class="nav-link {% if app.request.get('_route') == 'home' %}active{% endif %}" aria-current="page">{{ 'navbar.home'|trans }}</a>
+                    <a href="{{ path('home') }}" class="nav-link {{ app.request.attributes.get('_route') == 'home' ? 'active' : '' }}" aria-current="page">{{ 'navbar.home'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('url_index') }}" class="nav-link {% if app.request.get('_route') == 'url_index' %}active{% endif %}">{{ 'navbar.urls'|trans }}</a>
+                    <a href="{{ path('url_index') }}" class="nav-link {{ app.request.attributes.get('_route') == 'url_index' ? 'active' : '' }}">{{ 'navbar.urls'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('tag_index') }}" class="nav-link {% if app.request.get('_route') == 'tag_index' %}active{% endif %}">{{ 'navbar.tags'|trans }}</a>
+                    <a href="{{ path('tag_index') }}" class="nav-link {{ app.request.attributes.get('_route') == 'tag_index' ? 'active' : '' }}">{{ 'navbar.tags'|trans }}</a>
                 </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto nav-item d-flex align-items-center">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <span class="navbar-text">{{ app.user.email }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('app_logout') }}" class="nav-link">{{ 'action_logout'|trans }}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_login') }}" class="nav-link">{{ 'action_login'|trans }}</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
+
 
 
 
