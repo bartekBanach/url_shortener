@@ -8,6 +8,8 @@ use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -52,25 +54,44 @@ class HomeController extends AbstractController
     /**
      * Displays the main page with a URL form.
      *
-     * @param Request $request HTTP request
+     * @param Request            $request             HTTP request
+     * @param RateLimiterFactory $anonymousApiLimiter Rate limiter
      *
      * @return Response HTTP response
      */
     #[Route('/', name: 'home', methods: ['GET', 'POST'])]
-    public function index(Request $request): Response
+    public function index(Request $request, RateLimiterFactory $anonymousApiLimiter): Response
     {
+        $limiter = $anonymousApiLimiter->create($request->getClientIp());
+        $isAuthenticated = null !== $this->getUser();
+
         $url = new Url();
-        $form = $this->createForm(UrlType::class, $url);
+        $form = $this->createForm(UrlType::class, $url, [
+            'csrf_protection' => false, // for testing
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$isAuthenticated && false === $limiter->consume(1)->isAccepted()) {
+                $this->addFlash(
+                    'danger',
+                    $this->translator->trans('message.rate_limit_exceeded')
+                );
+
+                return $this->redirectToRoute('home');
+            }
+
             $this->urlService->save($url);
             $this->addFlash(
                 'success',
                 $this->translator->trans('message.created_successfully')
             );
+            $this->redirectToRoute('home');
+
             $url = new Url();
-            $form = $this->createForm(UrlType::class, $url);
+            $form = $this->createForm(UrlType::class, $url, [
+                'csrf_protection' => false, // for testing
+            ]);
         }
 
         return $this->render('home/index.html.twig', [

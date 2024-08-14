@@ -53,7 +53,6 @@ class UrlType extends AbstractType
                 'attr' => ['max_length' => 64],
             ]
         );
-
         $builder->get('tags')->addModelTransformer(
             $this->tagsDataTransformer
         );
@@ -83,6 +82,6 @@ class UrlType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'tag';
+        return 'url_form';
     }
 }

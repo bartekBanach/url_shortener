@@ -7,6 +7,7 @@ namespace App\Tests\Controller;
 
 use App\Controller\HomeController;
 use App\Entity\Url;
+use App\Repository\UserRepository;
 use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -44,12 +45,9 @@ class HomeControllerTest extends WebTestCase
         $this->httpClient = static::createClient();
     }
 
-    // If no code return main page
-    // If code valid, redirect to longUrl
-    // If code invalid, show error
-    // else if code is one of the routes, go to route normally
-
     /**
+     * Test main index route.
+     *
      * @return void
      */
     public function testIndex()
@@ -65,6 +63,81 @@ class HomeControllerTest extends WebTestCase
         $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
 
+    /**
+     * Test rate limiting for anonymous users.
+     *
+     * @return void
+     */
+    public function testRateLimitingForAnonymousUser()
+    {
+        // given
+        static::getContainer()->get('cache.global_clearer')->clearPool('cache.rate_limiter'); // Reset rate limiter before test
+        $this->httpClient->followRedirects();
+        $crawler = $this->httpClient->request('GET', '/');
+
+        for ($i = 0; $i < 10; ++$i) {
+            $form = $crawler->selectButton('Shorten url')->form([
+                'url_form[longUrl]' => 'https://example.com',
+                'url_form[tags]' => 'testTag1, testTag2',
+            ]);
+
+            $this->httpClient->submit($form);
+            $this->assertSelectorTextContains('.alert-success', 'Created successfully');
+        }
+        // when
+
+        $form = $crawler->selectButton('Shorten url')->form([
+            'url_form[longUrl]' => 'https://example.com',
+            'url_form[tags]' => 'testTag1, testTag2',
+        ]);
+
+        $this->httpClient->submit($form);
+
+        $this->assertSelectorTextContains('.alert-danger', 'Rate limit exceeded. Please try again later.');
+    }
+
+    /**
+     * Test rate limiting for authenticated users.
+     *
+     * @return void
+     */
+    public function testRateLimitingForAuthenticatedUser()
+    {
+        // given
+        $this->httpClient->followRedirects();
+
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('user0@example.com');
+
+        $this->httpClient->loginUser($testUser);
+
+        $crawler = $this->httpClient->request('GET', '/');
+
+        for ($i = 0; $i < 10; ++$i) {
+            $form = $crawler->selectButton('Shorten url')->form([
+                'url_form[longUrl]' => 'https://example.com',
+                'url_form[tags]' => 'testTag1, testTag2',
+            ]);
+
+            $this->httpClient->submit($form);
+        }
+        // when
+        $form = $crawler->selectButton('Shorten url')->form([
+            'url_form[longUrl]' => 'https://example.com',
+            'url_form[tags]' => 'testTag1, testTag2',
+        ]);
+        $this->httpClient->submit($form);
+
+        // then
+        $this->assertSelectorTextContains('.alert-success', 'Created successfully');
+    }
+
+
+    /**
+     * Test redirect when short url is present in db.
+     *
+     * @return void
+     */
     public function testRedirectToLongUrl()
     {
         // given
@@ -84,6 +157,8 @@ class HomeControllerTest extends WebTestCase
     }
 
     /**
+     * Test redirect if short url is not found in db.
+     *
      * @return void
      */
     public function testRedirectToLongUrlNotFound()
@@ -104,9 +179,6 @@ class HomeControllerTest extends WebTestCase
             return;
         }
 
-        /*$this->expectException(NotFoundHttpException::class);
-
-        $controller->redirectToLongUrl('invalidCode');*/
 
         $this->fail('Expected NotFoundHttpException was not thrown.');
     }

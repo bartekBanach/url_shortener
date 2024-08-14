@@ -30,14 +30,29 @@
         <source>message.record_not_found</source>
         <target>Record not found.</target>
       </trans-unit>
-      <trans-unit id="title.record_list">
-        <source>title.record_list</source>
-        <target>Records list</target>
+      <trans-unit id="message.rate_limit_exceeded">
+         <source>message.rate_limit_exceeded</source>
+         <target>Rate limit exceeded. Please try again later.</target>
       </trans-unit>
-      <trans-unit id="title.record_view">
-        <source>title.record_view</source>
-        <target>Record view #%id%</target>
+
+
+      <trans-unit id="action.shorten_url">
+        <source>action.shorten_url</source>
+        <target>Shorten url</target>
       </trans-unit>
+
+      <trans-unit id="message.created_successfully">
+         <source>message.created_successfully</source>
+         <target>Created successfully</target>
+      </trans-unit>
+
+
+
+            <trans-unit id="title.tag_list">
+               <source>title.tag_list</source>
+               <target>Tag list</target>
+            </trans-unit>
+
     </body>
   </file>
 </xliff>
