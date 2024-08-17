@@ -67,6 +67,19 @@ class Url
     #[ORM\JoinTable(name: 'tasks_tags')]
     private Collection $tags;
 
+
+
+    /**
+     * Author.
+     *
+     * @var User|null The author of the URL
+     */
+    #[ORM\ManyToOne]
+    private ?User $author = null;
+
+    /**
+     * Url constructor.
+     */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -191,6 +204,31 @@ class Url
      */
     public function __toString(): string
     {
-        return 'url';
+        return $this->shortUrl ?? $this->longUrl ?? 'N/A';
+    }
+
+
+    /**
+     * Getter for author.
+     *
+     * @return User|null The author of the URL
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+
+    /**
+     * Setter for author.
+     *
+     * @param User|null $author The author of the URL
+     * @return static
+     */
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
+
+        return $this;
     }
 }

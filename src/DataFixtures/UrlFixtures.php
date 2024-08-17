@@ -6,11 +6,13 @@
 namespace App\DataFixtures;
 
 use App\Entity\Url;
+use App\Entity\User;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class UrlFixtures.
  */
-class UrlFixtures extends AbstractBaseFixtures
+class UrlFixtures extends AbstractBaseFixtures implements  DependentFixtureInterface
 {
     /**
      * List of URL addresses.
@@ -35,7 +37,6 @@ class UrlFixtures extends AbstractBaseFixtures
      */
     protected function loadData(): void
     {
-
         $this->createMany(20, 'urls', function (int $i) {
             $url = new Url();
             $url->setLongUrl($this->urlsList[array_rand($this->urlsList)]); // Select a random URL from the list
@@ -50,10 +51,27 @@ class UrlFixtures extends AbstractBaseFixtures
                 $url->addTag($tag);
             }
 
+            /** @var User $author */
+            $author = $this->getRandomReference('users');
+            $url->setAuthor($author);
 
             return $url;
         });
 
         $this->manager->flush();
+    }
+
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @return string[] of dependencies
+     *
+     * @psalm-return array{0: CategoryFixtures::class, 1: TagFixtures::class, 2: UserFixtures::class}
+     */
+    public function getDependencies(): array
+    {
+        return [TagFixtures::class, UserFixtures::class];
     }
 }

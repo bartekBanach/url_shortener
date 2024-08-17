@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Url;
+use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -31,9 +32,8 @@ interface UrlServiceInterface
      * Generate short url code for new Url entity.
      *
      * @return string $code
- */
+     */
     public function generateShortUrlCode(): string;
-
 
     /**
      * Find Url entity by shortened Url code.
@@ -47,9 +47,10 @@ interface UrlServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int  $page   Page number
+     * @param User $author Optional author filter
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface;
+    public function getPaginatedList(int $page, User $author): PaginationInterface;
 }

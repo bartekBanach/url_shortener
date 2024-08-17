@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Url;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
@@ -54,6 +55,23 @@ class UrlRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->orderBy('url.createdAt', 'DESC');
+    }
+
+
+    /**
+     * Query URLs by author.
+     *
+     * @param User $user User entity
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryByAuthor(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('url');
+
+        $queryBuilder->andWhere('url.author = :author')
+            ->setParameter('author', $user);
+        return $queryBuilder;
     }
 
     /**

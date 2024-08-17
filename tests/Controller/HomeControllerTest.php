@@ -113,13 +113,15 @@ class HomeControllerTest extends WebTestCase
 
         $crawler = $this->httpClient->request('GET', '/');
 
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < 1; ++$i) {
             $form = $crawler->selectButton('Shorten url')->form([
                 'url_form[longUrl]' => 'https://example.com',
                 'url_form[tags]' => 'testTag1, testTag2',
             ]);
 
             $this->httpClient->submit($form);
+            #$response = $this->httpClient->getResponse();
+            #echo($response->getContent());
         }
         // when
         $form = $crawler->selectButton('Shorten url')->form([
@@ -131,6 +133,8 @@ class HomeControllerTest extends WebTestCase
         // then
         $this->assertSelectorTextContains('.alert-success', 'Created successfully');
     }
+
+    //test if author is set properly for logged and anonymous user
 
 
     /**

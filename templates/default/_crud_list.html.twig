@@ -60,12 +60,17 @@
                             <a href="{{ path(view_route, {id: item.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.view'|trans }}">
                                 {{ 'action.view'|trans }}
                             </a>
-                            <a href="{{ path(edit_route, {id: item.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.edit'|trans }}">
-                                {{ 'action.edit'|trans }}
-                            </a>
-                            <a href="{{ path(delete_route, {id: item.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.delete'|trans }}">
-                                {{ 'action.delete'|trans }}
-                            </a>
+                            {% if is_granted('EDIT', item) %}
+                                <a href="{{ path(edit_route, {id: item.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.edit'|trans }}">
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                            {% endif %}
+                            {% if is_granted('DELETE', item) %}
+                                <a href="{{ path(delete_route, {id: item.id}) }}" class="text-blue-500 hover:underline" title="{{ 'action.delete'|trans }}">
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                            {% endif %}
+
                         </td>
                     </tr>
                 {% endfor %}

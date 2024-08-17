@@ -46,12 +46,23 @@
          <target>Created successfully</target>
       </trans-unit>
 
+       <trans-unit id="title.url_details">
+         <source>title.url_details</source>
+         <target>URL Details</target>
+      </trans-unit>
+
+      <trans-unit id="title.tag_list">
+        <source>title.tag_list</source>
+        <target>Tag list</target>
+      </trans-unit>
+
+      <trans-unit id="message.access_denied">
+        <source>message.access_denied</source>
+        <target>Access denied</target>
+      </trans-unit>
 
 
-            <trans-unit id="title.tag_list">
-               <source>title.tag_list</source>
-               <target>Tag list</target>
-            </trans-unit>
+
 
     </body>
   </file>

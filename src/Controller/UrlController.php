@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -46,7 +47,7 @@ class UrlController extends AbstractController
     #[Route(name: 'url_index', methods: 'GET')]
     public function index(Request $request, UrlRepository $urlRepository, PaginatorInterface $paginator, #[MapQueryParameter] int $page = 1): Response
     {
-        $pagination = $this->urlService->getPaginatedList($page);
+        $pagination = $this->urlService->getPaginatedList($page, null);
 
         return $this->render('url/index.html.twig', ['pagination' => $pagination]);
     }
@@ -64,8 +65,18 @@ class UrlController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET',
     )]
+    #[IsGranted('VIEW', subject: 'url')]
     public function show(Url $url): Response
     {
+        if ($url->getAuthor() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message.record_not_found')
+            );
+
+            return $this->redirectToRoute('url_index');
+        }
+
         return $this->render(
             'url/show.html.twig',
             ['url' => $url]
@@ -87,7 +98,10 @@ class UrlController extends AbstractController
     )]
     public function create(Request $request, UrlServiceInterface $urlService): Response
     {
+        $user = $this->getUser();
+
         $url = new Url();
+        $url->setAuthor($user);
         $form = $this->createForm(UrlType::class, $url);
         $form->handleRequest($request);
 
@@ -117,8 +131,18 @@ class UrlController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/edit', name: 'url_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[IsGranted('EDIT', subject: 'url')]
     public function edit(Request $request, Url $url, UrlServiceInterface $urlService, TranslatorInterface $translator): Response
     {
+        if ($url->getAuthor() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message.record_not_found')
+            );
+
+            return $this->redirectToRoute('url_index');
+        }
+
         $form = $this->createForm(
             UrlType::class,
             $url,
@@ -149,7 +173,6 @@ class UrlController extends AbstractController
         );
     }
 
-
     /**
      * Delete action.
      *
@@ -159,8 +182,18 @@ class UrlController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/delete', name: 'url_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[IsGranted('DELETE', subject: 'url')]
     public function delete(Request $request, Url $url): Response
     {
+        if ($url->getAuthor() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message.record_not_found')
+            );
+
+            return $this->redirectToRoute('url_index');
+        }
+
         $form = $this->createForm(FormType::class, $url, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('url_delete', ['id' => $url->getId()]),
@@ -186,7 +219,4 @@ class UrlController extends AbstractController
             ]
         );
     }
-
-
-
 }
