@@ -9,7 +9,6 @@ namespace App\Repository;
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManager;
-
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
@@ -40,16 +39,15 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Query all tags.
      *
-     * @return QueryBuilder Query builder
+     * @return QueryBuilder List of tags
      */
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
             ->select('partial tag.{id, title, createdAt, updatedAt}')
             ->orderBy('tag.updatedAt', 'DESC');
+
     }
-
-
 
     /**
      * Save tag entity.
@@ -81,7 +79,6 @@ class TagRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-
     /**
      * Find by title.
      *
@@ -92,6 +89,16 @@ class TagRepository extends ServiceEntityRepository
     public function findOneByTitle(string $title): ?Tag
     {
         return $this->findOneBy(['title' => $title]);
+    }
+
+    /**
+     * @param int $id Tag id
+     *
+     * @return Tag|null Tag entity
+     */
+    public function findOneById(int $id): ?Tag
+    {
+        return $this->findOneBy(['id' => $id]);
     }
 
     /**

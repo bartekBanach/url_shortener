@@ -1,3 +1,11 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    {{ 'title.tag_list' | trans }}
+{% endblock %}
+
+{% block body %}
 {% include 'default/_crud_list.html.twig' with {
     entity: 'tag',
     page_title: 'title.tag_list'|trans,
@@ -13,3 +21,5 @@
     delete_route: 'tag_delete',
     back_to_list_path: 'tag_index',
 } %}
+
+{%  endblock %}

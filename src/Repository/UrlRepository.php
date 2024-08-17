@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Dto\UrlListFiltersDto;
+use App\Entity\Tag;
 use App\Entity\Url;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -49,28 +51,33 @@ class UrlRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
+     * @param UrlListFiltersDto $filters Filters
+     *
      * @return QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(UrlListFiltersDto $filters): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->orderBy('url.createdAt', 'DESC');
-    }
 
+        return $this->applyFiltersToList($queryBuilder, $filters);
+    }
 
     /**
      * Query URLs by author.
      *
-     * @param User $user User entity
+     * @param User              $user    User entity
+     * @param UrlListFiltersDto $filters Filters
      *
      * @return QueryBuilder Query builder
      */
-    public function queryByAuthor(User $user): QueryBuilder
+    public function queryByAuthor(User $user, UrlListFiltersDto $filters): QueryBuilder
     {
-        $queryBuilder = $this->createQueryBuilder('url');
+        $queryBuilder = $this->queryAll($filters);
 
-        $queryBuilder->andWhere('url.author = :author')
+        $queryBuilder->andWhere('task.author = :author')
             ->setParameter('author', $user);
+
         return $queryBuilder;
     }
 
@@ -85,7 +92,6 @@ class UrlRepository extends ServiceEntityRepository
         $this->_em->persist($url);
         $this->_em->flush();
     }
-
 
     /**
      * Delete entity.
@@ -112,5 +118,23 @@ class UrlRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('url');
+    }
+
+    /**
+     * Apply filters to paginated URL list.
+     *
+     * @param QueryBuilder      $queryBuilder Query builder
+     * @param UrlListFiltersDto $filters      Filters
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, UrlListFiltersDto $filters): QueryBuilder
+    {
+        if ($filters->tag instanceof Tag) {
+            $queryBuilder->andWhere(':tag MEMBER OF url.tags')
+                ->setParameter('tag', $filters->tag);
+        }
+
+        return $queryBuilder;
     }
 }

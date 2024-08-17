@@ -5,16 +5,19 @@
 
 namespace App\Controller;
 
+use App\Dto\UrlListInputFiltersDto;
 use App\Entity\Url;
 use App\Form\Type\UrlType;
-use App\Repository\UrlRepository;
+use App\Resolver\UrlListInputFiltersDtoResolver;
+use App\Service\TagServiceInterface;
 use App\Service\UrlServiceInterface;
-use Knp\Component\Pager\PaginatorInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -25,31 +28,38 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[Route('/url')]
 class UrlController extends AbstractController
 {
+
     /**
      * Constructor.
      *
      * @param UrlServiceInterface $urlService Url service
+     * @param TagServiceInterface $tagService Tag service
      * @param TranslatorInterface $translator Translator
      */
-    public function __construct(private readonly UrlServiceInterface $urlService, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly UrlServiceInterface $urlService, private readonly TagServiceInterface $tagService, private readonly TranslatorInterface $translator, private readonly LoggerInterface $logger)
     {
     }
 
     /**
      * Index action.
      *
-     * @param Request            $request       HTTP Request
-     * @param UrlRepository      $urlRepository URL repository
-     * @param PaginatorInterface $paginator     Paginator
+     * @param UrlListInputFiltersDto $filters Input filters
+     * @param int                    $page    Page number
      *
      * @return Response HTTP response
      */
     #[Route(name: 'url_index', methods: 'GET')]
-    public function index(Request $request, UrlRepository $urlRepository, PaginatorInterface $paginator, #[MapQueryParameter] int $page = 1): Response
+    public function index(#[MapQueryString(resolver: UrlListInputFiltersDtoResolver::class)] UrlListInputFiltersDto $filters, #[MapQueryParameter] int $page = 1): Response
     {
-        $pagination = $this->urlService->getPaginatedList($page, null);
+        $pagination = $this->urlService->getPaginatedList(
+            $page,
+            null,
+            $filters
+        );
+        $tags = $this->tagService->findAll();
+        $this->logger->info('Retrieved Tags:', ['tags' => $tags]);
 
-        return $this->render('url/index.html.twig', ['pagination' => $pagination]);
+        return $this->render('url/index.html.twig', ['pagination' => $pagination, 'tags' => $tags, 'filters' => $filters]);
     }
 
     /**

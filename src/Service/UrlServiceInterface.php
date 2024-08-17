@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Dto\UrlListInputFiltersDto;
 use App\Entity\Url;
 use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -49,8 +50,12 @@ interface UrlServiceInterface
      *
      * @param int  $page   Page number
      * @param User $author Optional author filter
+     * @param UrlListInputFiltersDto $filters Filters
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page, User $author): PaginationInterface;
+    public function getPaginatedList(int $page, User $author, UrlListInputFiltersDto $filters): PaginationInterface;
+
+
+
 }

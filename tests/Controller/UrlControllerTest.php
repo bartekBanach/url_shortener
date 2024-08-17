@@ -85,9 +85,7 @@ class UrlControllerTest extends WebTestCase
         $this->httpClient->loginUser($user);
 
         $this->httpClient->request('GET', sprintf('/url/%d', $url->getId()));
-        /*$response = $this->httpClient->getResponse();
-        echo 'Response Status Code: '.$response->getStatusCode().PHP_EOL;
-        echo 'Response Content: '.$response->getContent().PHP_EOL;*/
+
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'URL Details');

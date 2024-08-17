@@ -1,11 +1,14 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}
-    {{ page_title|trans }}
-{% endblock %}
 
-{% block body %}
-    <h1 class="font-bold mb-4">{{ page_title|trans }}</h1>
+
+
+    <div class="d-flex flex-column align-items-center justify-content-center mb-3">
+        <h1 class="font-bold mb-4">{{ page_title|trans }}</h1>
+        <a href="{{ path(back_to_list_path) }}" class="btn btn-secondary me-2">
+            {{ 'button.clear_filters'|trans }}
+        </a>
+    </div>
+
 
     {% if pagination is defined and pagination.items|length %}
 
@@ -87,4 +90,3 @@
             {{ 'message.empty_list'|trans }}
         </p>
     {% endif %}
-{% endblock %}

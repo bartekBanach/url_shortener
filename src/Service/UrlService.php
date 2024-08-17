@@ -5,9 +5,12 @@
 
 namespace App\Service;
 
+use App\Dto\UrlListFiltersDto;
+use App\Dto\UrlListInputFiltersDto;
 use App\Entity\Url;
 use App\Entity\User;
 use App\Repository\UrlRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -30,24 +33,27 @@ class UrlService implements UrlServiceInterface
     /**
      * Constructor.
      *
-     * @param UrlRepository      $urlRepository URL repository
-     * @param PaginatorInterface $paginator     Paginator
+     * @param UrlRepository       $urlRepository URL repository
+     * @param TagServiceInterface $tagService    Tag service
+     * @param PaginatorInterface  $paginator     Paginator
      */
-    public function __construct(private readonly UrlRepository $urlRepository, private readonly PaginatorInterface $paginator)
+    public function __construct(private readonly UrlRepository $urlRepository, private readonly TagServiceInterface $tagService, private readonly PaginatorInterface $paginator)
     {
     }
 
     /**
      * Get paginated list.
      *
-     * @param int       $page   Page number
-     * @param User|null $author Optional author filter
+     * @param int                    $page    Page number
+     * @param User|null              $author  Optional author filter
+     * @param UrlListInputFiltersDto $filters Filters
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page, ?User $author): PaginationInterface
+    public function getPaginatedList(int $page, ?User $author, UrlListInputFiltersDto $filters): PaginationInterface
     {
-        $queryBuilder = $author ? $this->urlRepository->queryByAuthor($author) : $this->urlRepository->queryAll();
+        $filters = $this->prepareFilters($filters);
+        $queryBuilder = $author ? $this->urlRepository->queryByAuthor($author, $filters) : $this->urlRepository->queryAll($filters);
 
         return $this->paginator->paginate(
             $queryBuilder,
@@ -55,6 +61,7 @@ class UrlService implements UrlServiceInterface
             self::PAGINATOR_ITEMS_PER_PAGE
         );
     }
+
 
     /**
      * Save entity.
@@ -101,5 +108,20 @@ class UrlService implements UrlServiceInterface
     public function findUrlByShortUrl(string $shortUrl): ?Url
     {
         return $this->urlRepository->findOneBy(['shortUrl' => $shortUrl]);
+    }
+
+    /**
+     * Prepare filters for the URLs list.
+     *
+     * @param UrlListInputFiltersDto $filters Raw filters from the request
+     *
+     * @return UrlListFiltersDto Result filters
+     *
+     * @throws NonUniqueResultException
+     */
+    private function prepareFilters(UrlListInputFiltersDto $filters): UrlListFiltersDto
+    {
+        return new UrlListFiltersDto(
+            null !== $filters->tagId ? $this->tagService->findOneById($filters->tagId) : null, );
     }
 }
