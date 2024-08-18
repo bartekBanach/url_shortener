@@ -62,7 +62,6 @@ class UrlService implements UrlServiceInterface
         );
     }
 
-
     /**
      * Save entity.
      *
@@ -70,22 +69,10 @@ class UrlService implements UrlServiceInterface
      */
     public function save(Url $url): void
     {
-        $this->urlRepository->save($url);
-
         if (null === $url->getShortUrl()) {
-            $url->setShortUrl($url->getId());
-            $this->urlRepository->save($url);
+            $url->setShortUrl($this->generateShortUrlCode($url->getLongUrl()));
         }
-    }
-
-    /**
-     * Generate short url code for new Url entity.
-     *
-     * @return string $code
-     */
-    public function generateShortUrlCode(): string
-    {
-        return bin2hex(random_bytes(6));
+        $this->urlRepository->save($url);
     }
 
     /**
@@ -105,9 +92,9 @@ class UrlService implements UrlServiceInterface
      *
      * @return Url|null Url entity
      */
-    public function findUrlByShortUrl(string $shortUrl): ?Url
+    public function findOneByShortUrl(string $shortUrl): ?Url
     {
-        return $this->urlRepository->findOneBy(['shortUrl' => $shortUrl]);
+        return $this->urlRepository->findOneByShortUrl($shortUrl);
     }
 
     /**
@@ -123,5 +110,60 @@ class UrlService implements UrlServiceInterface
     {
         return new UrlListFiltersDto(
             null !== $filters->tagId ? $this->tagService->findOneById($filters->tagId) : null, );
+    }
+
+    /**
+     * Generate 7 characters short url code for new Url entity.
+     *
+     * @param string $longUrl Long url code
+     *
+     * @return string Short url code
+     */
+    public function generateShortUrlCode(string $longUrl): string
+    {
+
+        $hash = md5($longUrl); // Generate a hash
+        $base62 = $this->base62Encode(hexdec(substr($hash, 0, 15))); // Convert to base62
+
+        // Ensure the code is exactly 7 characters long
+        $shortCode = substr($base62, 0, 7);
+
+        // Check for uniqueness in the database
+        while (null !== $this->findOneByShortUrl($shortCode)) {
+            $shortCode = $this->generateRandomBase62Code();
+        }
+
+        return $shortCode;
+    }
+
+    /**
+     * Encode number to base 62 string format.
+     *
+     * @param int $num Number to be converted
+     *
+     * @return string Encoded string
+     */
+    private function base62Encode(int $num): string
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $base = strlen($characters);
+        $encoded = '';
+
+        while ($num > 0) {
+            $encoded = $characters[$num % $base].$encoded;
+            $num = (int) ($num / $base);
+        }
+
+        return $encoded;
+    }
+
+    /**
+     * Generate random 7 characters string.
+     *
+     * @return string Random string
+     */
+    private function generateRandomBase62Code(): string
+    {
+        return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 7);
     }
 }

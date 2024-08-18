@@ -26,7 +26,6 @@
                                 {{ column.label }}
                             {%  else %}
                                 {{ knp_pagination_sortable(pagination, column.label|trans, entity ~ '.' ~ column.field) }}
-
                             {% endif %}
                         </th>
                     {% endfor %}
@@ -42,6 +41,13 @@
 
                                 {% if column.field == 'createdAt' or column.field == 'updatedAt' %}
                                     {{ fieldValue | format_date('long') }}
+
+                                {% elseif column.field == 'shortUrl' %}
+                                    {% set shortCode = fieldValue %}
+                                    {% set currentDomain = app.request.schemeAndHttpHost %}
+                                    {% set fullUrl = currentDomain ~ '/' ~ shortCode %}
+
+                                    <a href="{{ fullUrl }}">{{ fullUrl }}</a>
 
                                 {% elseif fieldValue is iterable %}
                                     <div>

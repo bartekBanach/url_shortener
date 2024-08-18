@@ -41,7 +41,7 @@ class HomeController extends AbstractController
     #[Route('/{code}', name: 'redirect', requirements: ['code' => '.+'], methods: ['GET'], priority: -1)]
     public function redirectToLongUrl(string $code): Response
     {
-        $url = $this->urlService->findUrlByShortUrl($code);
+        $url = $this->urlService->findOneByShortUrl($code);
 
         if (!$url) {
             throw $this->createNotFoundException('URL not found.');

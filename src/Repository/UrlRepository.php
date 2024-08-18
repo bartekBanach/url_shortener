@@ -81,6 +81,19 @@ class UrlRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
+
+    /**
+     * Find by short url code.
+     *
+     * @param string $shortUrl Short url code
+     *
+     * @return Url|null Url entity
+     */
+    public function findOneByShortUrl(string $shortUrl): ?Url
+    {
+        return $this->findOneBy(['shortUrl' => $shortUrl]);
+    }
+
     /**
      * Save entity.
      *

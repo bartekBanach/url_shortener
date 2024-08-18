@@ -30,32 +30,31 @@ interface UrlServiceInterface
     public function delete(Url $url): void;
 
     /**
-     * Generate short url code for new Url entity.
+     * Generate short URL code for new Url entity.
      *
-     * @return string $code
+     * @param string $longUrl Long URL code
+     *
+     * @return string Short URL code
      */
-    public function generateShortUrlCode(): string;
+    public function generateShortUrlCode(string $longUrl): string;
 
     /**
-     * Find Url entity by shortened Url code.
+     * Find Url entity by shortened URL code.
      *
-     * @param string $shortUrl Shortened Url code
+     * @param string $shortUrl Shortened URL code
      *
      * @return Url|null Url entity
      */
-    public function findUrlByShortUrl(string $shortUrl): ?Url;
+    public function findOneByShortUrl(string $shortUrl): ?Url;
 
     /**
      * Get paginated list.
      *
-     * @param int  $page   Page number
-     * @param User $author Optional author filter
+     * @param int                    $page    Page number
+     * @param User|null              $author  Optional author filter
      * @param UrlListInputFiltersDto $filters Filters
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page, User $author, UrlListInputFiltersDto $filters): PaginationInterface;
-
-
-
+    public function getPaginatedList(int $page, ?User $author, UrlListInputFiltersDto $filters): PaginationInterface;
 }
