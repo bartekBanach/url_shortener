@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Click;
 use App\Entity\Url;
 use App\Form\Type\UrlType;
+use App\Service\ClickServiceInterface;
 use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +25,7 @@ class HomeController extends AbstractController
      * @param UrlServiceInterface $urlService Url service
      * @param TranslatorInterface $translator Translator
      */
-    public function __construct(private readonly UrlServiceInterface $urlService, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly UrlServiceInterface $urlService, private readonly ClickServiceInterface $clickService, private readonly TranslatorInterface $translator)
     {
     }
 
@@ -39,13 +41,22 @@ class HomeController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{code}', name: 'redirect', requirements: ['code' => '.+'], methods: ['GET'], priority: -1)]
-    public function redirectToLongUrl(string $code): Response
+    public function redirectToLongUrl(string $code, Request $request): Response
     {
         $url = $this->urlService->findOneByShortUrl($code);
 
         if (!$url) {
             throw $this->createNotFoundException('URL not found.');
         }
+
+        $click = new Click();
+        $click->setUrl($url);
+        $click->setIpAddress($request->getClientIp());
+        $click->setUserAgent($request->headers->get('User-Agent'));
+        $this->clickService->save($click);
+
+        $url->addClick($click);
+        $this->urlService->save($url);
 
         return $this->redirect($url->getLongUrl());
     }

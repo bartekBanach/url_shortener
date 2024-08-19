@@ -1,0 +1,27 @@
+
+    <div class="overflow-x-auto p-5">
+        <table class="bg-white min-w-full">
+            <thead>
+            <tr class="w-full bg-gray-100 border-b">
+                {% block table_head %}
+                    <!-- Default header rendering, can be overridden in child templates -->
+                {% endblock %}
+            </tr>
+            </thead>
+            <tbody>
+            {% block table_body %}
+                <!-- Default body rendering, will be replaced in child templates -->
+            {% endblock %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if pagination is defined and pagination.items|length %}
+        <div class="text-center my-4">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <p class="text-gray-600 mt-4">
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}

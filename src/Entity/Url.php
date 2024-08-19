@@ -67,8 +67,6 @@ class Url
     #[ORM\JoinTable(name: 'tasks_tags')]
     private Collection $tags;
 
-
-
     /**
      * Author.
      *
@@ -78,11 +76,20 @@ class Url
     private ?User $author = null;
 
     /**
+     * Clicks associated with the URL.
+     *
+     * @var Collection<int, Click>
+     */
+    #[ORM\OneToMany(mappedBy: 'url', targetEntity: Click::class, orphanRemoval: true)]
+    private Collection $clicks;
+
+    /**
      * Url constructor.
      */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->clicks = new ArrayCollection();
     }
 
     /**
@@ -199,14 +206,11 @@ class Url
 
     /**
      * Convert entity to string.
-     *
-     * @return string
      */
     public function __toString(): string
     {
         return $this->shortUrl ?? $this->longUrl ?? 'N/A';
     }
-
 
     /**
      * Getter for author.
@@ -218,16 +222,56 @@ class Url
         return $this->author;
     }
 
-
     /**
      * Setter for author.
      *
      * @param User|null $author The author of the URL
-     * @return static
      */
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Getter for clicks.
+     *
+     * @return Collection<int, Click> Clicks collection
+     */
+    public function getClicks(): Collection
+    {
+        return $this->clicks;
+    }
+
+    /**
+     * Add click.
+     *
+     * @param Click $click Click entity
+     */
+    public function addClick(Click $click): static
+    {
+        if (!$this->clicks->contains($click)) {
+            $this->clicks->add($click);
+            $click->setUrl($this);  // Set the owning side
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove click.
+     *
+     * @param Click $click Click entity
+     */
+    public function removeClick(Click $click): static
+    {
+        if ($this->clicks->removeElement($click)) {
+            // Set the owning side to null (unless already changed)
+            if ($click->getUrl() === $this) {
+                $click->setUrl(null);
+            }
+        }
 
         return $this;
     }

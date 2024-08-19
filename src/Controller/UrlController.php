@@ -9,8 +9,10 @@ use App\Dto\UrlListInputFiltersDto;
 use App\Entity\Url;
 use App\Form\Type\UrlType;
 use App\Resolver\UrlListInputFiltersDtoResolver;
+use App\Service\ClickServiceInterface;
 use App\Service\TagServiceInterface;
 use App\Service\UrlServiceInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -28,7 +30,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[Route('/url')]
 class UrlController extends AbstractController
 {
-
     /**
      * Constructor.
      *
@@ -36,7 +37,7 @@ class UrlController extends AbstractController
      * @param TagServiceInterface $tagService Tag service
      * @param TranslatorInterface $translator Translator
      */
-    public function __construct(private readonly UrlServiceInterface $urlService, private readonly TagServiceInterface $tagService, private readonly TranslatorInterface $translator, private readonly LoggerInterface $logger)
+    public function __construct(private readonly UrlServiceInterface $urlService, private readonly TagServiceInterface $tagService, private readonly ClickServiceInterface $clickService, private readonly TranslatorInterface $translator)
     {
     }
 
@@ -47,6 +48,8 @@ class UrlController extends AbstractController
      * @param int                    $page    Page number
      *
      * @return Response HTTP response
+     *
+     * @throws NonUniqueResultException
      */
     #[Route(name: 'url_index', methods: 'GET')]
     public function index(#[MapQueryString(resolver: UrlListInputFiltersDtoResolver::class)] UrlListInputFiltersDto $filters, #[MapQueryParameter] int $page = 1): Response
@@ -57,7 +60,6 @@ class UrlController extends AbstractController
             $filters
         );
         $tags = $this->tagService->findAll();
-        $this->logger->info('Retrieved Tags:', ['tags' => $tags]);
 
         return $this->render('url/index.html.twig', ['pagination' => $pagination, 'tags' => $tags, 'filters' => $filters]);
     }
