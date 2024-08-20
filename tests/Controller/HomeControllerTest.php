@@ -5,14 +5,13 @@
 
 namespace App\Tests\Controller;
 
-use App\Controller\HomeController;
+use App\Entity\Click;
 use App\Entity\Url;
 use App\Repository\UserRepository;
+use App\Service\ClickServiceInterface;
 use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -33,6 +32,8 @@ class HomeControllerTest extends WebTestCase
     private KernelBrowser $httpClient;
 
     private UrlServiceInterface $urlService;
+
+    private ClickServiceInterface $clickService;
     private TranslatorInterface $translator;
 
     /**
@@ -41,6 +42,7 @@ class HomeControllerTest extends WebTestCase
     public function setUp(): void
     {
         $this->urlService = $this->createMock(UrlServiceInterface::class);
+        $this->clickService = $this->createMock(ClickServiceInterface::class);
         $this->translator = $this->createMock(TranslatorInterface::class);
         $this->httpClient = static::createClient();
     }
@@ -120,8 +122,8 @@ class HomeControllerTest extends WebTestCase
             ]);
 
             $this->httpClient->submit($form);
-            #$response = $this->httpClient->getResponse();
-            #echo($response->getContent());
+            // $response = $this->httpClient->getResponse();
+            // echo($response->getContent());
         }
         // when
         $form = $crawler->selectButton('Shorten url')->form([
@@ -134,56 +136,58 @@ class HomeControllerTest extends WebTestCase
         $this->assertSelectorTextContains('.alert-success', 'Created successfully');
     }
 
-    //test if author is set properly for logged and anonymous user
-
+    // test if author is set properly for logged and anonymous user
 
     /**
-     * Test redirect when short url is present in db.
-     *
-     * @return void
+     * Test if redirect route redirects to long url if short url is present in db.
      */
-    public function testRedirectToLongUrl()
+    public function testRedirectToLongUrl(): void
     {
         // given
+        $this->httpClient->followRedirects(false); // Disable following redirects
+
         $url = new Url();
         $url->setLongUrl('https://www.google.com');
 
-        $this->urlService->method('findUrlByShortUrl')->willReturn($url);
+        $this->urlService->expects($this->once())
+            ->method('findOneByShortUrl')
+            ->with('abcd123')
+            ->willReturn($url);
 
-        $controller = new HomeController($this->urlService, $this->translator);
-        $controller->setContainer(self::$kernel->getContainer());
+        $this->clickService->expects($this->once())
+            ->method('save')
+            ->with($this->isInstanceOf(Click::class));
+
+        static::getContainer()->set(UrlServiceInterface::class, $this->urlService);
+        static::getContainer()->set(ClickServiceInterface::class, $this->clickService);
 
         // when
-        $response = $controller->redirectToLongUrl('shortCode');
+        $crawler = $this->httpClient->request('GET', '/abcd123');
 
         // then
-        $this->assertTrue($response->isRedirect('https://www.google.com'));
+        $this->assertResponseStatusCodeSame(302);
+        $this->assertResponseRedirects('https://www.google.com');
     }
 
     /**
-     * Test redirect if short url is not found in db.
-     *
-     * @return void
+     * Test redirect route if short url is not found in db.
      */
-    public function testRedirectToLongUrlNotFound()
+    public function testRedirectToLongUrlNotFound(): void
     {
         // given
-        $this->urlService->method('findUrlByShortUrl')->willReturn(null);
+        $this->httpClient->followRedirects(false);
 
-        $controller = new HomeController($this->urlService, $this->translator);
-        $controller->setContainer(self::$kernel->getContainer());
+        $this->urlService->expects($this->once())
+            ->method('findOneByShortUrl')
+            ->with('invalidCode')
+            ->willReturn(null);
+
+        static::getContainer()->set(UrlServiceInterface::class, $this->urlService);
 
         // when
-        try {
-            $response = $controller->redirectToLongUrl('invalidCode');
-        } catch (NotFoundHttpException $e) {
-            // then
-            $this->assertEquals(Response::HTTP_NOT_FOUND, $e->getStatusCode());
+        $this->httpClient->request('GET', '/invalidCode');
 
-            return;
-        }
-
-
-        $this->fail('Expected NotFoundHttpException was not thrown.');
+        // then
+        $this->assertResponseStatusCodeSame(404);
     }
 }

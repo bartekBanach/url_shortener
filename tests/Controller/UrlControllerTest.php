@@ -105,6 +105,6 @@ class UrlControllerTest extends WebTestCase
         $this->httpClient->loginUser($user);
 
         $this->httpClient->request('GET', sprintf('/url/%d', $url->getId()));
-        $this->assertSelectorTextContains('.alert-warning', 'Record not found.');
+        $this->assertResponseStatusCodeSame(403); // Assert that the response status code is 403 Forbidden
     }
 }

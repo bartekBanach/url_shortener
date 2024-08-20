@@ -44,11 +44,12 @@ class UrlService implements UrlServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int                    $page    Page number
-     * @param User|null              $author  Optional author filter
+     * @param int $page Page number
+     * @param User|null $author Optional author filter
      * @param UrlListInputFiltersDto $filters Filters
      *
      * @return PaginationInterface<string, mixed> Paginated list
+     * @throws NonUniqueResultException
      */
     public function getPaginatedList(int $page, ?User $author, UrlListInputFiltersDto $filters): PaginationInterface
     {
@@ -59,7 +60,6 @@ class UrlService implements UrlServiceInterface
             ->addSelect('COUNT(click.id) AS clickCount')
             ->groupBy('url.id')
             ->orderBy('url.createdAt', 'DESC'); // Ensure ordering as needed
-
 
 
         return $this->paginator->paginate(
@@ -165,7 +165,7 @@ class UrlService implements UrlServiceInterface
     }
 
     /**
-     * Generate random 7 characters string.
+     * Generate random 7 characters Base62 string.
      *
      * @return string Random string
      */
@@ -173,4 +173,8 @@ class UrlService implements UrlServiceInterface
     {
         return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 7);
     }
+
+
+
+
 }
