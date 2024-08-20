@@ -60,9 +60,12 @@
                         </td>
                     {% endfor %}
                     <td>
-                        <a href="{{ path(view_route, {id: item.id}) }}" class="text-primary" title="{{ 'action.view'|trans }}">
-                            {{ 'action.view'|trans }}
-                        </a>
+                        {% if is_granted('VIEW', item) %}
+                            <a href="{{ path(view_route, {id: item.id}) }}" class="text-primary" title="{{ 'action.view'|trans }}">
+                                {{ 'action.view'|trans }}
+                            </a>
+                        {% endif %}
+
                         {% if is_granted('EDIT', item) %}
                             <a href="{{ path(edit_route, {id: item.id}) }}" class="text-primary" title="{{ 'action.edit'|trans }}">
                                 {{ 'action.edit'|trans }}

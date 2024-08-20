@@ -11,7 +11,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * TEsts for UrlService
+ * TEsts for UrlService.
  */
 class UrlServiceTest extends TestCase
 {
@@ -35,6 +35,7 @@ class UrlServiceTest extends TestCase
             $this->paginator
         );
     }
+
 
     /**
      * Test generateShortUrlCode method.
@@ -125,6 +126,7 @@ class UrlServiceTest extends TestCase
 
     /**
      * Test generateRandomBase62Code method.
+     *
      * @throws \ReflectionException
      */
     public function testGenerateRandomBase62Code(): void

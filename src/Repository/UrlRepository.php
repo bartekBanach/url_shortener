@@ -75,7 +75,7 @@ class UrlRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->queryAll($filters);
 
-        $queryBuilder->andWhere('task.author = :author')
+        $queryBuilder->andWhere('url.author = :author')
             ->setParameter('author', $user);
 
         return $queryBuilder;

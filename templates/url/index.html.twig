@@ -43,7 +43,7 @@
                         <td>
                             {% set shortCode = url[0].shortUrl %}
                             {% set currentDomain = app.request.schemeAndHttpHost %}
-                            {% set fullUrl = currentDomain ~ '/' ~ shortCode %}
+                            {% set fullUrl = absolute_url(path('home', {})) ~ shortCode %}
                             <a href="{{ fullUrl }}">{{ fullUrl }}</a>
                         </td>
                         <td>{{ url[0].createdAt|date('Y/m/d') }}</td>
@@ -68,15 +68,17 @@
                         </td>
                         <td>{{ url[0].author }}</td>
                         <td>
-                            <a href="{{ path('url_show', {id: url[0].id}) }}" title="{{ 'action.view'|trans }}">
-                                {{ 'action.view'|trans }}
-                            </a>
-                            {% if is_granted('EDIT', url) %}
+                            {% if is_granted('VIEW', url[0]) %}
+                                <a href="{{ path('url_show', {id: url[0].id}) }}" title="{{ 'action.view'|trans }}">
+                                    {{ 'action.view'|trans }}
+                                </a>
+                            {% endif %}
+                            {% if is_granted('EDIT', url[0]) %}
                                 <a href="{{ path('url_edit', {id: url[0].id}) }}" title="{{ 'action.edit'|trans }}">
                                     {{ 'action.edit'|trans }}
                                 </a>
                             {% endif %}
-                            {% if is_granted('DELETE', url) %}
+                            {% if is_granted('DELETE', url[0]) %}
                                 <a href="{{ path('url_delete', {id: url[0].id}) }}" title="{{ 'action.delete'|trans }}">
                                     {{ 'action.delete'|trans }}
                                 </a>

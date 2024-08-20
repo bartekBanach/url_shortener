@@ -6,7 +6,9 @@
 namespace App\Tests\Controller;
 
 use App\Entity\Click;
+use App\Entity\Enum\UserRole;
 use App\Entity\Url;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\ClickServiceInterface;
 use App\Service\UrlServiceInterface;
@@ -109,7 +111,12 @@ class HomeControllerTest extends WebTestCase
         $this->httpClient->followRedirects();
 
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('user0@example.com');
+        #$testUser = $userRepository->findOneByEmail('user0@example.com');
+
+        $testUser = $this->createUser([UserRole::ROLE_USER->value]);
+        /*$testUser = new User();
+        $testUser->setEmail('user0@example.com');
+        $testUser->setPassword('abc1234');*/
 
         $this->httpClient->loginUser($testUser);
 
@@ -189,5 +196,32 @@ class HomeControllerTest extends WebTestCase
 
         // then
         $this->assertResponseStatusCodeSame(404);
+    }
+
+
+    /**
+     * Create user.
+     *
+     * @param array $roles User roles
+     *
+     * @return User User entity
+     *
+     */
+    private function createUser(array $roles): User
+    {
+        $passwordHasher = static::getContainer()->get('security.password_hasher');
+        $user = new User();
+        $user->setEmail('user@example.com');
+        $user->setRoles($roles);
+        $user->setPassword(
+            $passwordHasher->hashPassword(
+                $user,
+                'p@55w0rd'
+            )
+        );
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $userRepository->save($user);
+
+        return $user;
     }
 }
