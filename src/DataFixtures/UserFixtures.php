@@ -42,6 +42,7 @@ class UserFixtures extends AbstractBaseFixtures
                     'user1234'
                 )
             );
+            $user->setVerified(true);
 
             return $user;
         });
