@@ -93,6 +93,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             new UserBadge($email, function ($userIdentifier) {
                 $user = $this->userRepository->findOneBy(['email' => $userIdentifier]);
 
+                if (!$user) {
+                    throw new CustomUserMessageAuthenticationException($this->translator->trans('login.error.user_not_found', [], 'security'));
+                }
+
                 if (!$user->isVerified()) {
                     throw new CustomUserMessageAuthenticationException($this->translator->trans('login.error.email_not_verified', [], 'security'));
                 }

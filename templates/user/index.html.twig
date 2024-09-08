@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_list' | trans }}
+{% endblock %}
+
+{% block body %}
+    {% include 'default/_crud_list.html.twig' with {
+        entity: 'user',
+        page_title: 'title.user_list'|trans,
+        pagination: pagination,
+        columns: [
+            { 'label': 'label.id'|trans, 'field': 'id' },
+            { 'label': 'label.email'|trans, 'field': 'email' },
+            { 'label': 'label.password'|trans, 'field': 'password' },
+            { 'label': 'label.roles'|trans, 'field': 'roles' },
+        ],
+        view_route: 'user_show',
+        edit_route: 'user_edit',
+        delete_route: 'user_delete',
+        back_to_list_path: 'user_index',
+    } %}
+{% endblock %}

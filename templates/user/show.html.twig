@@ -1,0 +1,13 @@
+{% include 'default/_crud_show.html.twig' with {
+    page_title: 'title.user_details'|trans({'%id%': user.id|default('')}),
+    item: user,
+    fields: ['id', 'email', 'password', 'isVerified'],
+    labels: {
+        'id': 'label.id',
+        'email': 'label.email',
+        'password': 'label.password',
+        'isVerified': 'label.is_verified'
+    },
+    dateFields: ['createdAt'],
+    back_to_list_path: path('user_index')
+} %}

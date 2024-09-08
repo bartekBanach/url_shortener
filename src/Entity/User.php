@@ -220,7 +220,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return self
      */
-    public function setVerified(bool $isVerified): self
+    public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
 

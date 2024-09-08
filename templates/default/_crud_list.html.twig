@@ -47,8 +47,11 @@
                             {% elseif fieldValue is iterable %}
                                 <div>
                                     {% for item in fieldValue %}
-                                        <span> {{ item.title }}{% if not loop.last %}, {% endif %}
-                                            </span>
+                                        {% if item.title is defined %}
+                                            <span> {{ item.title }}{% if not loop.last %}, {% endif %}</span>
+                                        {% else %}
+                                            <span> {{ item }}{% if not loop.last %}, {% endif %}</span>
+                                        {% endif %}
                                     {% else %}
                                         <span>No items available</span>
                                     {% endfor %}
