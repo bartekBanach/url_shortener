@@ -81,7 +81,6 @@ class UrlRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
-
     /**
      * Find by short url code.
      *

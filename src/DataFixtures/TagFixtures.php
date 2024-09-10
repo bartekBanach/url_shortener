@@ -35,7 +35,6 @@ class TagFixtures extends AbstractBaseFixtures
      */
     protected function loadData(): void
     {
-
         if (null === $this->manager || null === $this->faker) {
             return;
         }
@@ -57,7 +56,6 @@ class TagFixtures extends AbstractBaseFixtures
 
             $tag->setCreatedAt($createdAt);
             $tag->setUpdatedAt($updatedAt);
-
 
             return $tag;
         });

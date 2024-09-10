@@ -5,6 +5,7 @@
 
 namespace App\Form\Type;
 
+use App\Entity\Enum\UserRole;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -60,8 +61,8 @@ class UserType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'label' => 'label.roles',
                 'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'User' => 'ROLE_USER',
+                    UserRole::ROLE_ADMIN->label() => UserRole::ROLE_ADMIN->value,
+                    UserRole::ROLE_USER->label() => UserRole::ROLE_USER->value,
                 ],
                 'multiple' => true,
                 'expanded' => true,

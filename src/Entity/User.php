@@ -26,8 +26,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * Primary key.
-     *
-     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,8 +34,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Email.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
@@ -54,8 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Password.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
@@ -63,8 +57,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Verification status.
-     *
-     * @var bool
      */
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
@@ -173,8 +165,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Returning a salt is only needed if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
-     * @return string|null
-     *
      * @see UserInterface
      */
     public function getSalt(): ?string
@@ -195,8 +185,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Convert entity to string.
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -217,8 +205,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Sets the verification status.
      *
      * @param bool $isVerified Verification status
-     *
-     * @return self
      */
     public function setIsVerified(bool $isVerified): self
     {

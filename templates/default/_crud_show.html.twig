@@ -6,7 +6,11 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1 class="display-4 mb-4">{{ page_title|trans }}</h1>
+        <h1 class="display-4 mb-4">{{ page_title|trans }}
+            {% if item is defined and item %}
+                #{{ item.id }}
+            {% endif %}
+        </h1>
 
         {% if item is defined and item %}
             <dl class="row">

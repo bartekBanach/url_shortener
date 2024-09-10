@@ -73,6 +73,7 @@ class Url
      * @var User|null The author of the URL
      */
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?User $author = null;
 
     /**
@@ -80,7 +81,7 @@ class Url
      *
      * @var Collection<int, Click>
      */
-    #[ORM\OneToMany(mappedBy: 'url', targetEntity: Click::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'url', targetEntity: Click::class, cascade: ['remove'], orphanRemoval: true)]
     private Collection $clicks;
 
     /**

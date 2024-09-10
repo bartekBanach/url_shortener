@@ -44,11 +44,12 @@ class UrlService implements UrlServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
-     * @param User|null $author Optional author filter
+     * @param int                    $page    Page number
+     * @param User|null              $author  Optional author filter
      * @param UrlListInputFiltersDto $filters Filters
      *
      * @return PaginationInterface<string, mixed> Paginated list
+     *
      * @throws NonUniqueResultException
      */
     public function getPaginatedList(int $page, ?User $author, UrlListInputFiltersDto $filters): PaginationInterface
@@ -60,7 +61,6 @@ class UrlService implements UrlServiceInterface
             ->addSelect('COUNT(click.id) AS clickCount')
             ->groupBy('url.id')
             ->orderBy('url.createdAt', 'DESC'); // Ensure ordering as needed
-
 
         return $this->paginator->paginate(
             $queryBuilder,
@@ -116,7 +116,8 @@ class UrlService implements UrlServiceInterface
     private function prepareFilters(UrlListInputFiltersDto $filters): UrlListFiltersDto
     {
         return new UrlListFiltersDto(
-            null !== $filters->tagId ? $this->tagService->findOneById($filters->tagId) : null, );
+            null !== $filters->tagId ? $this->tagService->findOneById($filters->tagId) : null,
+        );
     }
 
     /**
@@ -128,7 +129,6 @@ class UrlService implements UrlServiceInterface
      */
     public function generateShortUrlCode(string $longUrl): string
     {
-
         $hash = md5($longUrl); // Generate a hash
         $base62 = $this->base62Encode(hexdec(substr($hash, 0, 15))); // Convert to base62
 
@@ -173,8 +173,4 @@ class UrlService implements UrlServiceInterface
     {
         return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 7);
     }
-
-
-
-
 }

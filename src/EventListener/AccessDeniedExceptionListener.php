@@ -9,7 +9,6 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-
 class AccessDeniedExceptionListener
 {
     private $requestStack;

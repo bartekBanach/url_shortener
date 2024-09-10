@@ -40,11 +40,34 @@
         <source>action.shorten_url</source>
         <target>Shorten url</target>
       </trans-unit>
+      <trans-unit id="action.save">
+        <source>action.save</source>
+        <target>Save</target>
+      </trans-unit>
+      <trans-unit id="action.edit">
+        <source>action.edit</source>
+        <target>Edit</target>
+      </trans-unit>
+
+      <trans-unit id="action.delete">
+        <source>action.delete</source>
+        <target>Delete</target>
+      </trans-unit>
 
       <trans-unit id="message.created_successfully">
          <source>message.created_successfully</source>
          <target>Created successfully</target>
       </trans-unit>
+
+      <trans-unit id="message.updated_successfully ">
+         <source>message.updated_successfully</source>
+         <target>Updated successfully</target>
+      </trans-unit>
+      <trans-unit id="message.deleted_successfully ">
+         <source>message.deleted_successfully</source>
+         <target>Deleted successfully</target>
+      </trans-unit>
+
 
        <trans-unit id="title.url_details">
          <source>title.url_details</source>

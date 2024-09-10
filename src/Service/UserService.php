@@ -28,8 +28,8 @@ class UserService implements UserServiceInterface
     /**
      * Constructor.
      *
-     * @param UserRepository      $userRepository User repository
-     * @param PaginatorInterface  $paginator      Paginator
+     * @param UserRepository     $userRepository User repository
+     * @param PaginatorInterface $paginator      Paginator
      */
     public function __construct(private readonly UserRepository $userRepository, private readonly PaginatorInterface $paginator, private readonly UserPasswordHasherInterface $passwordHasher)
     {
@@ -76,8 +76,6 @@ class UserService implements UserServiceInterface
         $this->userRepository->delete($user);
     }
 
-
-
     /**
      * Find user by id.
      *
@@ -91,6 +89,4 @@ class UserService implements UserServiceInterface
     {
         return $this->userRepository->findOneById($id);
     }
-
-
 }

@@ -20,7 +20,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier, private translatorInterface $translator)
+    public function __construct(private EmailVerifier $emailVerifier, private TranslatorInterface $translator)
     {
     }
 
@@ -45,7 +45,9 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('admin@url-shortener.com', 'Url Shortener Support'))
                     ->to($user->getEmail())

@@ -17,8 +17,6 @@ interface ClickServiceInterface
      * Save a click entity.
      *
      * @param Click $click Click entity to be saved
-     *
-     * @return void
      */
     public function save(Click $click): void;
 

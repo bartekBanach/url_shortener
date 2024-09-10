@@ -13,7 +13,6 @@ use App\Service\ClickServiceInterface;
 use App\Service\TagServiceInterface;
 use App\Service\UrlServiceInterface;
 use Doctrine\ORM\NonUniqueResultException;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;

@@ -8,7 +8,6 @@ namespace App\Service;
 
 use App\Entity\Tag;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -59,12 +58,10 @@ interface TagServiceInterface
      */
     public function findOneById(int $id): ?Tag;
 
-
     /**
      * Find all tags.
      *
      * @return Tag[] List of tags
      */
     public function findAll(): array;
-
 }

@@ -46,7 +46,6 @@ class TagRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder()
             ->select('partial tag.{id, title, createdAt, updatedAt}')
             ->orderBy('tag.updatedAt', 'DESC');
-
     }
 
     /**

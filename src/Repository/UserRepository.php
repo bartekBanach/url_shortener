@@ -38,7 +38,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * Save user entity.
      *
      * @param User $user User entity
-     *
      */
     public function save(User $user): void
     {
@@ -51,7 +50,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * Delete user entity.
      *
      * @param User $user User entity
-     *
      */
     public function delete(User $user): void
     {
@@ -59,7 +57,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $em->remove($user);
         $em->flush();
     }
-
 
     /**
      * Find a user by ID.
@@ -71,7 +68,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findOneById(int $id): ?User
     {
         return $this->getOrCreateQueryBuilder()
-            ->andWhere('u.id = :id')
+            ->andWhere('user.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult();
@@ -85,7 +82,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
-            ->select('partial u.{id, email, roles, password}');
+            ->select('partial user.{id, email, roles, password}');
     }
 
     /**
@@ -97,6 +94,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        return $queryBuilder ?? $this->createQueryBuilder('u');
+        return $queryBuilder ?? $this->createQueryBuilder('user');
     }
 }

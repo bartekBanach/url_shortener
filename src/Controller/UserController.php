@@ -46,7 +46,6 @@ class UserController extends AbstractController
     public function index(#[MapQueryParameter] int $page = 1): Response
     {
         $pagination = $this->userService->getPaginatedList($page);
-        dump($pagination);
 
         return $this->render('user/index.html.twig', [
             'pagination' => $pagination,
@@ -85,10 +84,9 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($user);
-            $entityManager->flush();
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->userService->save($user);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
 
             return $this->redirectToRoute('user_index');

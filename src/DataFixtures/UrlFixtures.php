@@ -12,7 +12,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 /**
  * Class UrlFixtures.
  */
-class UrlFixtures extends AbstractBaseFixtures implements  DependentFixtureInterface
+class UrlFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * List of URL addresses.
@@ -60,7 +60,6 @@ class UrlFixtures extends AbstractBaseFixtures implements  DependentFixtureInter
 
         $this->manager->flush();
     }
-
 
     /**
      * This method must return an array of fixtures classes

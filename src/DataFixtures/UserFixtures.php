@@ -42,7 +42,7 @@ class UserFixtures extends AbstractBaseFixtures
                     'user1234'
                 )
             );
-            $user->setVerified(true);
+            $user->setIsVerified(true);
 
             return $user;
         });
@@ -57,6 +57,8 @@ class UserFixtures extends AbstractBaseFixtures
                     'admin1234'
                 )
             );
+            $user->setIsVerified(true);
+
 
             return $user;
         });

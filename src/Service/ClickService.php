@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Click;
 use App\Entity\Url;
 use App\Repository\ClickRepository;
-use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * Class ClickService.
@@ -28,8 +27,6 @@ class ClickService implements ClickServiceInterface
      * Save a click entity.
      *
      * @param Click $click Click entity to be saved
-     *
-     * @return void
      */
     public function save(Click $click): void
     {
@@ -58,7 +55,6 @@ class ClickService implements ClickServiceInterface
      * @param Url $url The URL entity to count clicks for
      *
      * @return int The count of clicks
-     *
      */
     public function getClickCountByUrl(Url $url): int
     {
