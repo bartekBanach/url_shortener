@@ -1,5 +1,12 @@
 <div class="d-flex flex-column align-items-center justify-content-center mb-3">
-    <h1 class="mb-4">{{ page_title|trans }}</h1>
+
+    <div class="d-flex align-items-center mb-4">
+        <h1 class="me-3">{{ page_title|trans }}</h1>
+        <a href="{{ path(create_route) }}" class="btn btn-primary d-flex align-items-center">
+            <i class="bi bi-plus" style="font-size: 1.5rem;"></i>
+        </a>
+    </div>
+
     <a href="{{ path(back_to_list_path) }}" class="btn btn-secondary me-2">
         {{ 'button.clear_filters'|trans }}
     </a>
@@ -63,18 +70,18 @@
                         </td>
                     {% endfor %}
                     <td>
-                        {% if is_granted('VIEW', item) %}
+                        {% if is_granted('ROLE_ADMIN', item) %}
                             <a href="{{ path(view_route, {id: item.id}) }}" class="text-primary" title="{{ 'action.view'|trans }}">
                                 {{ 'action.view'|trans }}
                             </a>
                         {% endif %}
 
-                        {% if is_granted('EDIT', item) %}
+                        {% if is_granted('ROLE_ADMIN', item) %}
                             <a href="{{ path(edit_route, {id: item.id}) }}" class="text-primary" title="{{ 'action.edit'|trans }}">
                                 {{ 'action.edit'|trans }}
                             </a>
                         {% endif %}
-                        {% if is_granted('DELETE', item) %}
+                        {% if is_granted('ROLE_ADMIN', item) %}
                             <a href="{{ path(delete_route, {id: item.id}) }}" class="text-primary" title="{{ 'action.delete'|trans }}">
                                 {{ 'action.delete'|trans }}
                             </a>

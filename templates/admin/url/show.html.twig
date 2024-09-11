@@ -1,0 +1,13 @@
+{% include 'default/_crud_show.html.twig' with {
+    page_title: 'title.url_details'|trans({'%id%': url.id|default('')}),
+    item: url,
+    fields: ['id', 'longUrl', 'shortUrl', 'createdAt'],
+    labels: {
+        'id': 'label.id',
+        'longUrl': 'label.long_url',
+        'shortUrl': 'label.short_url',
+        'createdAt': 'label.created_at'
+    },
+    dateFields: ['createdAt'],
+    back_to_list_path: path('admin_url_index')
+} %}

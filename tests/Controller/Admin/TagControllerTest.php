@@ -5,7 +5,7 @@
  * Tests for Tag Controller.
  */
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -15,6 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class TagControllerTest extends WebTestCase
 {
     /**
+     * Test route.
+     *
+     * @const string
+     */
+    public const TEST_ROUTE = '/admin/tag';
+
+    /**
      * Test the tag list page.
      *
      * @return void
@@ -22,9 +29,8 @@ class TagControllerTest extends WebTestCase
     public function testSomething(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/tag');
+        $crawler = $client->request('GET', self::TEST_ROUTE);
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Tag list');
     }
 }

@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block body %}
+    {% include 'admin/_admin_nav.html.twig' %}
+
+
 {% include 'default/_crud_list.html.twig' with {
     entity: 'tag',
     page_title: 'title.tag_list'|trans,
@@ -17,6 +20,7 @@
         { 'label': 'label.updated_at'|trans, 'field': 'updatedAt' },
     ],
     view_route: 'tag_show',
+    create_route: 'tag_create',
     edit_route: 'tag_edit',
     delete_route: 'tag_delete',
     back_to_list_path: 'tag_index',

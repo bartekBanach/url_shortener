@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.url_list' | trans }}
+{% endblock %}
+
+{% block body %}
+    {% include 'admin/_admin_nav.html.twig' %}
+
+    <div class="d-flex flex-column align-items-center justify-content-center mb-3">
+        <div class="d-flex align-items-center mb-4">
+            <h1 class="me-3">{{ 'title.url_list' | trans }}</h1>
+            <a href="{{ path('admin_url_create') }}" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-plus" style="font-size: 1.5rem;"></i>
+            </a>
+        </div>
+        <a href="{{ path('admin_url_index') }}" class="btn btn-secondary me-2">
+            {{ 'button.clear_filters'|trans }}
+        </a>
+    </div>
+
+
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center mb-4">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'url.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.long_url'|trans, 'url.longUrl') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.short_url'|trans, 'url.shortUrl') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'url.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.click_Counts'|trans, 'clickCount') }}</th>
+                <th>{{ 'label.tags'|trans }}</th>
+                <th>{{ 'label.author'|trans }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for url in pagination.items %}
+                <tr>
+                    <td>{{ url[0].id }}</td>
+                    <td>{{ url[0].longUrl }}</td>
+                    <td>
+                        {% set shortCode = url[0].shortUrl %}
+                        {% set currentDomain = app.request.schemeAndHttpHost %}
+                        {% set fullUrl = absolute_url(path('home', {})) ~ shortCode %}
+                        <a href="{{ fullUrl }}">{{ fullUrl }}</a>
+                    </td>
+                    <td>{{ url[0].createdAt|date('Y/m/d') }}</td>
+                    <td>{{ url[0].clicks|length }}</td>
+
+                    <td>
+                        {% if url[0].tags is iterable %}
+                            <div>
+
+                                {% for tag in url[0].tags %}
+                                    {% set isActive = tag.id == filters.tagId %}
+                                    <a class="btn {{ isActive ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2"
+                                       href="{{ url('admin_url_index', {'tagId': tag.id}) }}"
+                                       title="{{ tag.title }}">
+                                        {{ tag.title }}
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            No tags
+                        {% endif %}
+                    </td>
+                    <td>{{ url[0].author }}</td>
+                    <td>
+                        {% if is_granted('ROLE_ADMIN', url[0]) %}
+                            <a href="{{ path('admin_url_show', {id: url[0].id}) }}" title="{{ 'action.view'|trans }}">
+                                {{ 'action.view'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN', url[0]) %}
+                            <a href="{{ path('admin_url_edit', {id: url[0].id}) }}" title="{{ 'action.edit'|trans }}">
+                                {{ 'action.edit'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN', url[0]) %}
+                            <a href="{{ path('admin_url_delete', {id: url[0].id}) }}" title="{{ 'action.delete'|trans }}">
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center mt-4">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+
+
+    <div class="tags-list">
+        <h3>{{ 'label.all_tags'|trans }}</h3>
+        <div class="tags">
+            {% for tag in tags %}
+                {% set isActive = tag.id == filters.tagId %}
+                <a class="btn {{ isActive ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2"
+                   href="{{ url('admin_url_index', {'tagId': tag.id}) }}"
+                   title="{{ tag.title }}">
+                    {{ tag.title }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

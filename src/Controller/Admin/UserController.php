@@ -3,12 +3,11 @@
  * User controller.
  */
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\Type\UserType;
 use App\Service\UserServiceInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +20,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class UserController.
  */
-#[Route('/user')]
+#[Route('/admin/user')]
+#[IsGranted('ROLE_ADMIN')]
 class UserController extends AbstractController
 {
     /**
@@ -42,7 +42,6 @@ class UserController extends AbstractController
      * @return Response HTTP response
      */
     #[Route(name: 'user_index', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function index(#[MapQueryParameter] int $page = 1): Response
     {
         $pagination = $this->userService->getPaginatedList($page);
@@ -71,14 +70,12 @@ class UserController extends AbstractController
     /**
      * Create action.
      *
-     * @param Request                $request       HTTP request
-     * @param EntityManagerInterface $entityManager Entity manager
+     * @param Request $request HTTP request
      *
      * @return Response HTTP response
      */
     #[Route('/create', name: 'user_create', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -99,15 +96,14 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param Request                $request       HTTP request
-     * @param User                   $user          User entity
-     * @param EntityManagerInterface $entityManager Entity manager
+     * @param Request $request HTTP request
+     * @param User    $user    User entity
      *
      * @return Response HTTP response
      */
     #[Route('/{id}/edit', name: 'user_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
     #[IsGranted('EDIT', subject: 'user')]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user, [
             'method' => 'POST',

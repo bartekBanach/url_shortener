@@ -19,6 +19,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a href="{{ path('home') }}" class="nav-link {{ app.request.attributes.get('_route') == 'home' ? 'active' : '' }}" aria-current="page">{{ 'navbar.home'|trans }}</a>
@@ -26,13 +27,19 @@
                 <li class="nav-item">
                     <a href="{{ path('url_index') }}" class="nav-link {{ app.request.attributes.get('_route') == 'url_index' ? 'active' : '' }}">{{ 'navbar.urls'|trans }}</a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ path('tag_index') }}" class="nav-link {{ app.request.attributes.get('_route') == 'tag_index' ? 'active' : '' }}">{{ 'navbar.tags'|trans }}</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('user_index') }}" class="nav-link {{ app.request.attributes.get('_route') == 'user_index' ? 'active' : '' }}">{{ 'navbar.users'|trans }}</a>
-                </li>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a href="{{ path('user_index') }}"
+                           class="nav-link {{
+                           app.request.attributes.get('_route') in ['user_index', 'admin_url_index', 'tag_index'] ? 'active' : ''
+                           }}">
+                            {{ 'navbar.admin' | trans }}
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
+
 
             <ul class="navbar-nav ms-auto nav-item d-flex align-items-center">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}

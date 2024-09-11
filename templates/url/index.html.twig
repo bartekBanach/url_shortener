@@ -32,8 +32,10 @@
                     <th>{{ knp_pagination_sortable(pagination, 'label.click_Counts'|trans, 'clickCount') }}</th>
                     <th>{{ 'label.tags'|trans }}</th>
                     <th>{{ 'label.author'|trans }}</th>
-                    <th>{{ 'label.actions'|trans }}</th>
-                </tr>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <th>{{ 'label.actions'|trans }}</th>
+                    {% endif %}
+        </tr>
                 </thead>
                 <tbody>
                 {% for url in pagination.items %}
@@ -67,23 +69,25 @@
                             {% endif %}
                         </td>
                         <td>{{ url[0].author }}</td>
-                        <td>
-                            {% if is_granted('VIEW', url[0]) %}
-                                <a href="{{ path('url_show', {id: url[0].id}) }}" title="{{ 'action.view'|trans }}">
-                                    {{ 'action.view'|trans }}
-                                </a>
-                            {% endif %}
-                            {% if is_granted('EDIT', url[0]) %}
-                                <a href="{{ path('url_edit', {id: url[0].id}) }}" title="{{ 'action.edit'|trans }}">
-                                    {{ 'action.edit'|trans }}
-                                </a>
-                            {% endif %}
-                            {% if is_granted('DELETE', url[0]) %}
-                                <a href="{{ path('url_delete', {id: url[0].id}) }}" title="{{ 'action.delete'|trans }}">
-                                    {{ 'action.delete'|trans }}
-                                </a>
-                            {% endif %}
-                        </td>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <td>
+                                {% if is_granted('VIEW', url[0]) %}
+                                    <a href="{{ path('url_show', {id: url[0].id}) }}" title="{{ 'action.view'|trans }}">
+                                        {{ 'action.view'|trans }}
+                                    </a>
+                                {% endif %}
+                                {% if is_granted('EDIT', url[0]) %}
+                                    <a href="{{ path('url_edit', {id: url[0].id}) }}" title="{{ 'action.edit'|trans }}">
+                                        {{ 'action.edit'|trans }}
+                                    </a>
+                                {% endif %}
+                                {% if is_granted('DELETE', url[0]) %}
+                                    <a href="{{ path('url_delete', {id: url[0].id}) }}" title="{{ 'action.delete'|trans }}">
+                                        {{ 'action.delete'|trans }}
+                                    </a>
+                                {% endif %}
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
                 </tbody>

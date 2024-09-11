@@ -4,7 +4,7 @@
  * Tests for User Controller.
  */
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\Admin;
 
 use App\Entity\Enum\UserRole;
 use App\Entity\User;
@@ -27,7 +27,7 @@ class UserControllerTest extends WebTestCase
      *
      * @const string
      */
-    public const TEST_ROUTE = '/user';
+    public const TEST_ROUTE = '/admin/user';
 
     /**
      * Test client.
@@ -118,7 +118,7 @@ class UserControllerTest extends WebTestCase
 
         $this->httpClient->submit($form);
 
-        $this->assertResponseRedirects('/user');
+        $this->assertResponseRedirects(self::TEST_ROUTE);
         $this->httpClient->followRedirect();
         $this->assertSelectorTextContains('.alert-success', 'Created successfully');
     }

@@ -1,0 +1,14 @@
+<header class="bg-light py-3 mb-4">
+    <div class="container">
+        <div class="d-flex justify-content-between">
+            <h1 class="h4">{{ 'label.admin_panel'|trans }}</h1>
+            <div>
+                <a href="{{ path('user_index') }}" class="btn btn-primary {{ app.request.attributes.get('_route') == 'user_index' ? 'active' : '' }}">{{ 'label.users'|trans }}</a>
+                <a href="{{ path('tag_index') }}" class="btn btn-primary {{ app.request.attributes.get('_route') == 'tag_index' ? 'active' : '' }}">{{ 'label.tags'|trans }}</a>
+                <a href="{{ path('admin_url_index') }}" class="btn btn-primary {{ app.request.attributes.get('_route') == 'url_index' ? 'active' : '' }}">{{ 'label.urls'|trans }}</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+

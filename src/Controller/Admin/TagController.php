@@ -4,7 +4,7 @@
  * Tag controller.
  */
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Tag;
 use App\Form\Type\TagType;
@@ -15,12 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class TagController.
  */
-#[Route('/tag')]
+#[Route('/admin/tag')]
+#[IsGranted('ROLE_ADMIN')]
 class TagController extends AbstractController
 {
     /**
