@@ -1,4 +1,9 @@
 <?php
+/**
+ * RegistrationFormType class.
+ *
+ * This form handles user registration, including terms agreement and password validation.
+ */
 
 namespace App\Form;
 
@@ -12,8 +17,21 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Class RegistrationFormType.
+ *
+ * Builds the form for user registration, including email, password, and terms agreement.
+ */
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * Build the registration form.
+     *
+     * @param FormBuilderInterface $builder Form builder instance
+     * @param array                $options Additional options for the form
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -46,6 +64,13 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
+    /**
+     * Configure default options for the form.
+     *
+     * @param OptionsResolver $resolver Options resolver
+     *
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

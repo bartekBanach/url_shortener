@@ -1,4 +1,7 @@
 <?php
+/**
+ * Click service.
+ */
 
 namespace App\Service;
 
@@ -18,9 +21,8 @@ class ClickService implements ClickServiceInterface
      *
      * @param ClickRepository $clickRepository Click repository
      */
-    public function __construct(
-        private readonly ClickRepository $clickRepository
-    ) {
+    public function __construct(private readonly ClickRepository $clickRepository)
+    {
     }
 
     /**

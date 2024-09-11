@@ -1,12 +1,24 @@
 <?php
 
+
+/**
+ * Tests for Tag Controller.
+ */
+
 namespace App\Tests\Controller;
 
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Test class for the TagController.
+ */
 class TagControllerTest extends WebTestCase
 {
+    /**
+     * Test the tag list page.
+     *
+     * @return void
+     */
     public function testSomething(): void
     {
         $client = static::createClient();
@@ -15,5 +27,4 @@ class TagControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Tag list');
     }
-
 }

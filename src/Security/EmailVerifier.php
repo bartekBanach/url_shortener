@@ -1,4 +1,9 @@
 <?php
+/**
+ * EmailVerifier class.
+ *
+ * Handles email verification processes, such as sending and confirming verification emails.
+ */
 
 namespace App\Security;
 
@@ -7,18 +12,33 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
+/**
+ * Class EmailVerifier.
+ */
 class EmailVerifier
 {
-    public function __construct(
-        private VerifyEmailHelperInterface $verifyEmailHelper,
-        private MailerInterface $mailer,
-        private EntityManagerInterface $entityManager
-    ) {
+    /**
+     * Constructor.
+     *
+     * @param VerifyEmailHelperInterface $verifyEmailHelper Email helper for generating and validating verification URLs
+     * @param MailerInterface            $mailer            Mailer service
+     * @param EntityManagerInterface     $entityManager     Entity manager for persisting user verification
+     */
+    public function __construct(private readonly VerifyEmailHelperInterface $verifyEmailHelper, private readonly MailerInterface $mailer, private readonly EntityManagerInterface $entityManager)
+    {
     }
 
+    /**
+     * Sends email confirmation for the user.
+     *
+     * @param string         $verifyEmailRouteName Route name used to generate the verification URL
+     * @param User           $user                 The user entity for whom the email is sent
+     * @param TemplatedEmail $email                The email template being sent
+     *
+     * @return void
+     */
     public function sendEmailConfirmation(string $verifyEmailRouteName, User $user, TemplatedEmail $email): void
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
@@ -38,13 +58,19 @@ class EmailVerifier
     }
 
     /**
-     * @throws VerifyEmailExceptionInterface
+     * Handles email confirmation process from the request.
+     *
+     * @param Request $request The HTTP request containing the confirmation details
+     * @param User    $user    The user entity being verified
+     *
+     * @return void
+     *
      */
     public function handleEmailConfirmation(Request $request, User $user): void
     {
         $this->verifyEmailHelper->validateEmailConfirmationFromRequest($request, (string) $user->getId(), $user->getEmail());
 
-        $user->setVerified(true);
+        $user->setIsVerified(true);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

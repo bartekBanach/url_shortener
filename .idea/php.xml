@@ -5,12 +5,12 @@
   </component>
   <component name="PHPCSFixerOptionsConfiguration">
     <option name="allowRiskyRules" value="true" />
-    <option name="codingStandard" value="Symfony" />
+    <option name="codingStandard" value="Custom" />
     <option name="rulesetPath" value="$PROJECT_DIR$/vendor/escapestudios/symfony2-coding-standard" />
     <option name="transferred" value="true" />
   </component>
   <component name="PHPCodeSnifferOptionsConfiguration">
-    <option name="codingStandard" value="Custom" />
+    <option name="codingStandard" value="Symfony" />
     <option name="customRuleset" value="$PROJECT_DIR$/vendor/escapestudios/symfony2-coding-standard" />
     <option name="highlightLevel" value="WARNING" />
     <option name="installedPaths" value="C:\xampp\htdocs\symfony-test\vendor\escapestudios\symfony2-coding-standard" />

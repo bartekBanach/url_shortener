@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Tests for Registration Controller.
+ */
+
 namespace App\Tests;
 
 use App\Repository\UserRepository;
@@ -8,11 +12,17 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Tests for the RegistrationController.
+ */
 class RegistrationControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
     private UserRepository $userRepository;
 
+    /**
+     * This method is called before each test.
+     */
     protected function setUp(): void
     {
         $this->client = static::createClient();
@@ -31,6 +41,11 @@ class RegistrationControllerTest extends WebTestCase
         $em->flush();
     }
 
+    /**
+     * Test the registration process.
+     *
+     * @return void
+     */
     public function testRegister(): void
     {
         // Register a new user
@@ -40,7 +55,7 @@ class RegistrationControllerTest extends WebTestCase
 
         $this->client->submitForm('Register', [
             'registration_form[email]' => 'me@example.com',
-            'registration_form[plainPassword]' => 'password',
+            'registration_form[password]' => 'password',
             'registration_form[agreeTerms]' => true,
         ]);
 

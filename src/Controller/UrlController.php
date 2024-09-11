@@ -1,6 +1,8 @@
 <?php
 /**
  * URL controller.
+ *
+ * @license MIT License
  */
 
 namespace App\Controller;
@@ -32,9 +34,10 @@ class UrlController extends AbstractController
     /**
      * Constructor.
      *
-     * @param UrlServiceInterface $urlService Url service
-     * @param TagServiceInterface $tagService Tag service
-     * @param TranslatorInterface $translator Translator
+     * @param UrlServiceInterface   $urlService   Url service
+     * @param TagServiceInterface   $tagService   Tag service
+     * @param ClickServiceInterface $clickService Click service
+     * @param TranslatorInterface   $translator   Translator
      */
     public function __construct(private readonly UrlServiceInterface $urlService, private readonly TagServiceInterface $tagService, private readonly ClickServiceInterface $clickService, private readonly TranslatorInterface $translator)
     {
@@ -136,8 +139,10 @@ class UrlController extends AbstractController
     /**
      * Edit action.
      *
-     * @param Request $request HTTP request
-     * @param Url     $url     URL entity
+     * @param Request             $request    HTTP request
+     * @param Url                 $url        URL entity
+     * @param UrlServiceInterface $urlService URL service
+     * @param TranslatorInterface $translator Translator
      *
      * @return Response HTTP response
      */
@@ -188,7 +193,7 @@ class UrlController extends AbstractController
      * Delete action.
      *
      * @param Request $request HTTP request
-     * @param Url     $url     Url entity
+     * @param Url     $url     URL entity
      *
      * @return Response HTTP response
      */

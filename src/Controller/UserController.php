@@ -84,7 +84,6 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->save($user);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));

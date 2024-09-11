@@ -1,4 +1,7 @@
 <?php
+/**
+ * User Repository.
+ */
 
 namespace App\Repository;
 
@@ -11,10 +14,17 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
+ * Repository for User entity management.
+ *
  * @extends ServiceEntityRepository<User>
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param ManagerRegistry $registry Manager registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -22,6 +32,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     *
+     * @param PasswordAuthenticatedUserInterface $user              The user whose password is being upgraded
+     * @param string                             $newHashedPassword The new hashed password
+     *
+     * @throws UnsupportedUserException If the provided user is not an instance of User
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
@@ -88,9 +103,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Get or create a new query builder.
      *
-     * @param QueryBuilder|null $queryBuilder Query builder
+     * @param QueryBuilder|null $queryBuilder Optional query builder
      *
-     * @return QueryBuilder Query builder
+     * @return QueryBuilder Query builder instance
      */
     private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {

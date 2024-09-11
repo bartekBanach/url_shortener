@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tests for UrlService.
+ */
 
 namespace App\Tests\Service;
 
@@ -11,7 +14,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * TEsts for UrlService.
+ * UrlServiceTest class.
  */
 class UrlServiceTest extends TestCase
 {
@@ -36,11 +39,10 @@ class UrlServiceTest extends TestCase
         );
     }
 
-
     /**
      * Test generateShortUrlCode method.
      */
-    public function testGenerateShortUrlCode()
+    public function testGenerateShortUrlCode(): void
     {
         // given
         $longUrl = 'https://example.com/some-long-url';
@@ -61,7 +63,7 @@ class UrlServiceTest extends TestCase
     /**
      * Test generateShortUrlCode main code generation is deterministic.
      */
-    public function testGenerateShortUrlCodeDeterministic()
+    public function testGenerateShortUrlCodeDeterministic(): void
     {
         $longUrl = 'https://example.com/some-long-url';
 
@@ -83,7 +85,7 @@ class UrlServiceTest extends TestCase
     /**
      * Test generateShortUrlCode method when the short code already exists.
      */
-    public function testGenerateShortUrlCodeGeneratesNewCodeWhenDuplicate()
+    public function testGenerateShortUrlCodeGeneratesNewCodeWhenDuplicate(): void
     {
         // given
         $longUrl = 'https://example.com/some-long-url';
@@ -101,13 +103,18 @@ class UrlServiceTest extends TestCase
         $shortCode2 = $this->urlService->generateShortUrlCode($longUrl);
 
         // then
-        $this->assertNotSame($shortCode1, $shortCode2, 'For two same longUrls the second generated short code should be generated randomly');
+        $this->assertNotSame($shortCode1, $shortCode2, 'For two same long URLs the second generated short code should be generated randomly');
     }
 
     /**
      * Test base62Encode method.
      *
      * @dataProvider dataProviderForBase62Encode
+     *
+     * @param int    $num      The number to encode.
+     * @param string $expected The expected encoded string.
+     *
+     * @return void
      *
      * @throws \ReflectionException
      */
@@ -127,6 +134,8 @@ class UrlServiceTest extends TestCase
     /**
      * Test generateRandomBase62Code method.
      *
+     * @return void
+     *
      * @throws \ReflectionException
      */
     public function testGenerateRandomBase62Code(): void
@@ -145,6 +154,8 @@ class UrlServiceTest extends TestCase
 
     /**
      * Data provider for testBase62Encode().
+     *
+     * @return array
      */
     public function dataProviderForBase62Encode(): array
     {

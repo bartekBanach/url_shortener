@@ -10,7 +10,9 @@ use App\Dto\UrlListInputFiltersDto;
 use App\Entity\Url;
 use App\Entity\User;
 use App\Repository\UrlRepository;
+use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -105,22 +107,6 @@ class UrlService implements UrlServiceInterface
     }
 
     /**
-     * Prepare filters for the URLs list.
-     *
-     * @param UrlListInputFiltersDto $filters Raw filters from the request
-     *
-     * @return UrlListFiltersDto Result filters
-     *
-     * @throws NonUniqueResultException
-     */
-    private function prepareFilters(UrlListInputFiltersDto $filters): UrlListFiltersDto
-    {
-        return new UrlListFiltersDto(
-            null !== $filters->tagId ? $this->tagService->findOneById($filters->tagId) : null,
-        );
-    }
-
-    /**
      * Generate 7 characters short url code for new Url entity.
      *
      * @param string $longUrl Long url code
@@ -142,6 +128,23 @@ class UrlService implements UrlServiceInterface
 
         return $shortCode;
     }
+
+    /**
+     * Prepare filters for the URLs list.
+     *
+     * @param UrlListInputFiltersDto $filters Raw filters from the request
+     *
+     * @return UrlListFiltersDto Result filters
+     *
+     * @throws NonUniqueResultException
+     */
+    private function prepareFilters(UrlListInputFiltersDto $filters): UrlListFiltersDto
+    {
+        return new UrlListFiltersDto(
+            null !== $filters->tagId ? $this->tagService->findOneById($filters->tagId) : null,
+        );
+    }
+
 
     /**
      * Encode number to base 62 string format.

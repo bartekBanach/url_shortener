@@ -1,4 +1,7 @@
 <?php
+/**
+ * UrlListInputFiltersDto
+ */
 
 namespace App\Dto;
 

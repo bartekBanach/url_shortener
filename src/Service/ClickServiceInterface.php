@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Click service interface.
+ */
 namespace App\Service;
 
 use App\Entity\Click;

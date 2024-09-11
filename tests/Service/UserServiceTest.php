@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tests for User Service.
+ */
 
 namespace App\Tests\Service;
 

@@ -166,6 +166,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
      * @see UserInterface
+     *
+     * @return string|null Always returns null as salt is not used
      */
     public function getSalt(): ?string
     {
@@ -185,6 +187,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Convert entity to string.
+     *
+     * @return string User email or 'N/A' if not set
      */
     public function __toString(): string
     {
@@ -205,6 +209,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Sets the verification status.
      *
      * @param bool $isVerified Verification status
+     *
+     * @return self
      */
     public function setIsVerified(bool $isVerified): self
     {

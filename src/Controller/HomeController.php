@@ -1,4 +1,9 @@
 <?php
+/**
+ * Controller handling URL redirection and the main page with URL form.
+ *
+ * @license MIT License
+ */
 
 namespace App\Controller;
 
@@ -15,15 +20,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Home controller.
+ * Class HomeController.
+ *
+ * Handles URL redirection to the long URL and the main page for URL creation.
  */
 class HomeController extends AbstractController
 {
     /**
      * Constructor.
      *
-     * @param UrlServiceInterface $urlService Url service
-     * @param TranslatorInterface $translator Translator
+     * @param UrlServiceInterface   $urlService   URL service
+     * @param ClickServiceInterface $clickService Click service
+     * @param TranslatorInterface   $translator   Translator service
      */
     public function __construct(private readonly UrlServiceInterface $urlService, private readonly ClickServiceInterface $clickService, private readonly TranslatorInterface $translator)
     {
@@ -36,7 +44,8 @@ class HomeController extends AbstractController
      * the corresponding long URL in the repository. If found, it redirects the
      * user to the long URL. If not found, it throws a 404 error.
      *
-     * @param string $code The shortened URL code
+     * @param string  $code    The shortened URL code
+     * @param Request $request The HTTP request object
      *
      * @return Response HTTP response
      */
@@ -64,8 +73,8 @@ class HomeController extends AbstractController
     /**
      * Displays the main page with a URL form.
      *
-     * @param Request            $request             HTTP request
-     * @param RateLimiterFactory $anonymousApiLimiter Rate limiter
+     * @param Request            $request             The HTTP request object
+     * @param RateLimiterFactory $anonymousApiLimiter Rate limiter factory for anonymous users
      *
      * @return Response HTTP response
      */
@@ -98,12 +107,14 @@ class HomeController extends AbstractController
                 'success',
                 $this->translator->trans('message.created_successfully')
             );
-            $this->redirectToRoute('home');
 
-            $url = new Url();
-            $form = $this->createForm(UrlType::class, $url, [
-                'csrf_protection' => false, // for testing
-            ]);
+            return $this->redirectToRoute('home'); // Fixed redirect to return statement
+
+            // This block is unreachable
+            // $url = new Url();
+            // $form = $this->createForm(UrlType::class, $url, [
+            //     'csrf_protection' => false, // for testing
+            // ]);
         }
 
         return $this->render('home/index.html.twig', [

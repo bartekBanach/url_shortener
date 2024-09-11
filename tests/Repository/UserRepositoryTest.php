@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Tests for User Repository.
+ */
 namespace App\Tests\Repository;
 
 use App\Entity\Url;
@@ -12,7 +14,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * Tests for User Repository.
+ * Class UserRepositoryTest.
  */
 class UserRepositoryTest extends KernelTestCase
 {
@@ -34,11 +36,6 @@ class UserRepositoryTest extends KernelTestCase
         $this->purgeDatabase();
     }
 
-    private function purgeDatabase(): void
-    {
-        $purger = new ORMPurger($this->entityManager);
-        $purger->purge();
-    }
 
     /**
      * This method is called after each test.
@@ -51,18 +48,7 @@ class UserRepositoryTest extends KernelTestCase
         $this->entityManager = null;
     }
 
-    /**
-     * Helper function to create a user.
-     */
-    private function createUser(string $email, string $password): User
-    {
-        $user = new User();
-        $user->setEmail($email);
-        $user->setPassword($password);
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-        return $user;
-    }
+
 
     /**
      * Test queryAll method.
@@ -174,12 +160,12 @@ class UserRepositoryTest extends KernelTestCase
         $user = $this->createUser('test@example.com', 'password');
 
         $url1 = new Url();
-        $url1->setLongUrl('http://example1.com');
+        $url1->setLongUrl('https://example1.com');
         $url1->setAuthor($user);
         $this->entityManager->persist($url1);
 
         $url2 = new Url();
-        $url2->setLongUrl('http://example2.com');
+        $url2->setLongUrl('https://example2.com');
         $url2->setAuthor($user);
         $this->entityManager->persist($url2);
 
@@ -215,5 +201,35 @@ class UserRepositoryTest extends KernelTestCase
         // then
         $updatedUser = $this->userRepository->findOneById($user->getId());
         $this->assertEquals($newHashedPassword, $updatedUser->getPassword());
+    }
+
+    /**
+     * Purges the database before each test.
+     *
+     * @return void
+     */
+    private function purgeDatabase(): void
+    {
+        $purger = new ORMPurger($this->entityManager);
+        $purger->purge();
+    }
+
+    /**
+     * Helper function to create a user.
+     *
+     * @param string $email    The user's email.
+     * @param string $password The user's password.
+     *
+     * @return User The created user entity.
+     */
+    private function createUser(string $email, string $password): User
+    {
+        $user = new User();
+        $user->setEmail($email);
+        $user->setPassword($password);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return $user;
     }
 }

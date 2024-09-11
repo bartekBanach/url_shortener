@@ -1,4 +1,7 @@
 <?php
+/**
+ * Click Repository.
+ */
 
 namespace App\Repository;
 

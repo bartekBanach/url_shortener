@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tests for Url Repository.
+ */
 
 namespace App\Tests\Repository;
 
@@ -23,6 +26,7 @@ class UrlRepositoryTest extends KernelTestCase
 
     /**
      * This method is called before each test.
+     *
      * @throws NotSupported
      */
     protected function setUp(): void

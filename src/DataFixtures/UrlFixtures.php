@@ -33,6 +33,19 @@ class UrlFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
     ];
 
     /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @return string[] of dependencies
+     *
+     * @psalm-return array{0: CategoryFixtures::class, 1: TagFixtures::class, 2: UserFixtures::class}
+     */
+    public function getDependencies(): array
+    {
+        return [TagFixtures::class, UserFixtures::class];
+    }
+
+    /**
      * Load data.
      */
     protected function loadData(): void
@@ -59,18 +72,5 @@ class UrlFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
         });
 
         $this->manager->flush();
-    }
-
-    /**
-     * This method must return an array of fixtures classes
-     * on which the implementing class depends on.
-     *
-     * @return string[] of dependencies
-     *
-     * @psalm-return array{0: CategoryFixtures::class, 1: TagFixtures::class, 2: UserFixtures::class}
-     */
-    public function getDependencies(): array
-    {
-        return [TagFixtures::class, UserFixtures::class];
     }
 }

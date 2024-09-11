@@ -1,4 +1,8 @@
 <?php
+/**
+ * Controller handling user registration and email verification.
+ *
+ */
 
 namespace App\Controller;
 
@@ -18,12 +22,33 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+/**
+ * Class RegistrationController.
+ *
+ * Handles user registration, email confirmation, and email verification.
+ */
 class RegistrationController extends AbstractController
 {
+    /**
+     * Constructor.
+     *
+     * @param EmailVerifier       $emailVerifier Email verifier service
+     * @param TranslatorInterface $translator    Translator service
+     */
     public function __construct(private EmailVerifier $emailVerifier, private TranslatorInterface $translator)
     {
     }
 
+    /**
+     * Registration action.
+     *
+     * @param Request                     $request            HTTP request
+     * @param UserPasswordHasherInterface $userPasswordHasher Password hasher service
+     * @param Security                    $security           Security service
+     * @param EntityManagerInterface      $entityManager      Entity manager service
+     *
+     * @return Response HTTP response
+     */
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
@@ -33,7 +58,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -44,7 +69,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
+            // Generate a signed URL and email it to the user
             $this->emailVerifier->sendEmailConfirmation(
                 'app_verify_email',
                 $user,
@@ -55,9 +80,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
-            // do anything else you need here, like send an email
-
-            // return $security->login($user, LoginFormAuthenticator::class, 'main');
+            // Do anything else you need here, like send an email
 
             $this->addFlash(
                 'success',
@@ -70,12 +93,20 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    /**
+     * Email verification action.
+     *
+     * @param Request             $request    HTTP request
+     * @param TranslatorInterface $translator Translator service
+     *
+     * @return Response HTTP response
+     */
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        // validate email confirmation link, sets User::isVerified=true and persists
+        // Validate email confirmation link, set User::isVerified=true and persist
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {

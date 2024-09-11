@@ -8,7 +8,6 @@ namespace App\Service;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -28,8 +27,9 @@ class UserService implements UserServiceInterface
     /**
      * Constructor.
      *
-     * @param UserRepository     $userRepository User repository
-     * @param PaginatorInterface $paginator      Paginator
+     * @param UserRepository              $userRepository User repository
+     * @param PaginatorInterface          $paginator      Paginator
+     * @param UserPasswordHasherInterface $passwordHasher Password hasher
      */
     public function __construct(private readonly UserRepository $userRepository, private readonly PaginatorInterface $paginator, private readonly UserPasswordHasherInterface $passwordHasher)
     {
@@ -83,7 +83,6 @@ class UserService implements UserServiceInterface
      *
      * @return User|null User entity
      *
-     * @throws NonUniqueResultException
      */
     public function findOneById(int $id): ?User
     {

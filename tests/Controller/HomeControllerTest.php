@@ -111,7 +111,7 @@ class HomeControllerTest extends WebTestCase
         $this->httpClient->followRedirects();
 
         $userRepository = static::getContainer()->get(UserRepository::class);
-        #$testUser = $userRepository->findOneByEmail('user0@example.com');
+        // $testUser = $userRepository->findOneByEmail('user0@example.com');
 
         $testUser = $this->createUser([UserRole::ROLE_USER->value]);
         /*$testUser = new User();
@@ -198,14 +198,12 @@ class HomeControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(404);
     }
 
-
     /**
      * Create user.
      *
      * @param array $roles User roles
      *
      * @return User User entity
-     *
      */
     private function createUser(array $roles): User
     {

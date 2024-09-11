@@ -94,7 +94,7 @@ class Url
     }
 
     /**
-     * Getter tfor ID.
+     * Getter for ID.
      *
      * @return int|null the identifier of the URL entity
      */
@@ -117,6 +117,8 @@ class Url
      * Setter for long URL.
      *
      * @param string $longUrl the original long URL
+     *
+     * @return static
      */
     public function setLongUrl(string $longUrl): static
     {
@@ -139,6 +141,8 @@ class Url
      * Setter for short URL.
      *
      * @param string|null $shortUrl the short URL code
+     *
+     * @return static
      */
     public function setShortUrl(?string $shortUrl): static
     {
@@ -161,6 +165,8 @@ class Url
      * Setter for createdAt.
      *
      * @param \DateTimeImmutable $createdAt the date and time when the URL was created
+     *
+     * @return static
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -183,6 +189,8 @@ class Url
      * Add tag.
      *
      * @param Tag $tag Tag entity
+     *
+     * @return static
      */
     public function addTag(Tag $tag): static
     {
@@ -197,6 +205,8 @@ class Url
      * Remove tag.
      *
      * @param Tag $tag Tag entity
+     *
+     * @return static
      */
     public function removeTag(Tag $tag): static
     {
@@ -207,6 +217,8 @@ class Url
 
     /**
      * Convert entity to string.
+     *
+     * @return string the short URL code or long URL, or 'N/A' if not set
      */
     public function __toString(): string
     {
@@ -227,6 +239,8 @@ class Url
      * Setter for author.
      *
      * @param User|null $author The author of the URL
+     *
+     * @return static
      */
     public function setAuthor(?User $author): static
     {
@@ -249,6 +263,8 @@ class Url
      * Add click.
      *
      * @param Click $click Click entity
+     *
+     * @return static
      */
     public function addClick(Click $click): static
     {
@@ -264,6 +280,8 @@ class Url
      * Remove click.
      *
      * @param Click $click Click entity
+     *
+     * @return static
      */
     public function removeClick(Click $click): static
     {

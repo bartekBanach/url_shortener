@@ -1,9 +1,12 @@
 <?php
 
+/**
+ * Tests for User Controller.
+ */
+
 namespace App\Tests\Controller;
 
 use App\Entity\Enum\UserRole;
-use App\Entity\Url;
 use App\Entity\User;
 use App\Service\UrlService;
 use App\Service\UserService;
@@ -170,7 +173,6 @@ class UserControllerTest extends WebTestCase
         $deletedUser = $this->userService->findOneById($user->getId());
         $this->assertNull($deletedUser);
     }
-
 
     /**
      * Create a user for testing.

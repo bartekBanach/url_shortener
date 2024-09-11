@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Url controller tests.
+ */
+
 namespace App\Tests\Controller;
 
 use App\Entity\Url;
@@ -30,46 +34,6 @@ class UrlControllerTest extends WebTestCase
         $this->urlService = static::getContainer()->get(UrlService::class);
     }
 
-    /**
-     * Create a User entity with unique email and predefined roles and password.
-     *
-     * @return User The created User entity
-     */
-    private function createUser(): User
-    {
-        $user = new User();
-        $uniqueEmail = sprintf('user%s@example.com', uniqid('', true));
-        $user->setEmail($uniqueEmail);
-        $user->setRoles(['ROLE_USER']);
-        $user->setPassword('password123');
-
-        $entityManager = static::getContainer()->get('doctrine')->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return $user;
-    }
-
-    /**
-     * Create a Url entity with an optional author.
-     *
-     * @param User|null $author The user to set as the author, or null if no author
-     *
-     * @return Url The created Url entity
-     */
-    private function createUrl(?User $author): Url
-    {
-        $url = new Url();
-
-        if (null !== $author) {
-            $url->setAuthor($author);
-        }
-        $url->setLongUrl('https://www.instagram.com');
-
-        $this->urlService->save($url);
-
-        return $url;
-    }
 
     /**
      * Test that an author can view the URL details.
@@ -85,7 +49,6 @@ class UrlControllerTest extends WebTestCase
         $this->httpClient->loginUser($user);
 
         $this->httpClient->request('GET', sprintf('/url/%d', $url->getId()));
-
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'URL Details');
@@ -106,5 +69,48 @@ class UrlControllerTest extends WebTestCase
 
         $this->httpClient->request('GET', sprintf('/url/%d', $url->getId()));
         $this->assertResponseStatusCodeSame(403); // Assert that the response status code is 403 Forbidden
+    }
+
+
+    /**
+     * Create a User entity with unique email and predefined roles and password.
+     *
+     * @return User The created User entity
+     */
+    private function createUser(): User
+    {
+        $user = new User();
+        $uniqueEmail = sprintf('user%s@example.com', uniqid('', true));
+        $user->setEmail($uniqueEmail);
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword('password123');
+
+        $entityManager = static::getContainer()->get('doctrine')->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $user;
+    }
+
+
+    /**
+     * Create a Url entity with an optional author.
+     *
+     * @param User|null $author The user to set as the author, or null if no author
+     *
+     * @return Url The created Url entity
+     */
+    private function createUrl(?User $author): Url
+    {
+        $url = new Url();
+
+        if (null !== $author) {
+            $url->setAuthor($author);
+        }
+        $url->setLongUrl('https://www.instagram.com');
+
+        $this->urlService->save($url);
+
+        return $url;
     }
 }
