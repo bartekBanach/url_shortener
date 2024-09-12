@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.url_shortener'|trans }}
+    {{ 'title.url_shortener' | trans }}
 {% endblock %}
 
 {% block body %}
-    <h1 class="font-bold mb-4">{{ 'title.url_shortener' }}</h1>
+    <h1 class="font-bold mb-4">{{ 'title.url_shortener' | trans }}</h1>
 
     {{ form_start(form, {'attr': {'class': 'text-center'}}) }}
 
     <div class="max-w-md mx-auto bg-white">
-        <h2 class="text-lg font-semibold mb-4">{{ 'form.title'|trans }}</h2>
+        <h2 class="text-lg font-semibold mb-4">{{ 'title.shorten_url' | trans }}</h2>
         {{ form_widget(form) }}
 
         <div class="text-center mt-4">

@@ -98,10 +98,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
                 if (!$user) {
                     throw new CustomUserMessageAuthenticationException($this->translator->trans('login.error.user_not_found', [], 'security'));
                 }
-
+                /*
                 if (!$user->isVerified()) {
-                    throw new CustomUserMessageAuthenticationException($this->translator->trans('login.error.email_not_verified', [], 'security'));
+                    throw new CustomUserMessageAuthenticationException($this->translator->trans('error.email_not_verified', [], 'security'));
                 }
+                */
 
                 return $user;
             }),

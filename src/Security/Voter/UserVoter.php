@@ -15,32 +15,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserVoter extends Voter
 {
-    /**
-     * Edit permission.
-     *
-     * @const string
-     */
     private const EDIT = 'EDIT';
-
-    /**
-     * View permission.
-     *
-     * @const string
-     */
     private const VIEW = 'VIEW';
-
-    /**
-     * Delete permission.
-     *
-     * @const string
-     */
     private const DELETE = 'DELETE';
 
     /**
      * Determines if the attribute and subject are supported by this voter.
      *
      * @param string $attribute An attribute
-     * @param mixed  $subject   The subject to secure, e.g. an object the user wants to access or any other PHP type
+     * @param mixed  $subject   The subject to secure
      *
      * @return bool Result
      */
@@ -52,7 +35,6 @@ class UserVoter extends Voter
 
     /**
      * Perform a single access check operation on a given attribute, subject, and token.
-     * It is safe to assume that $attribute and $subject already passed the "supports()" method check.
      *
      * @param string         $attribute Permission name
      * @param mixed          $subject   Object
@@ -68,10 +50,6 @@ class UserVoter extends Voter
         }
 
         if (!$subject instanceof User) {
-            return false;
-        }
-
-        if (!in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return false;
         }
 
@@ -93,7 +71,7 @@ class UserVoter extends Voter
      */
     private function canEdit(User $subject, UserInterface $user): bool
     {
-        return $subject !== $user;
+        return $subject === $user || in_array('ROLE_ADMIN', $user->getRoles(), true);
     }
 
     /**
@@ -106,7 +84,7 @@ class UserVoter extends Voter
      */
     private function canView(User $subject, UserInterface $user): bool
     {
-        return true;
+        return $subject === $user || in_array('ROLE_ADMIN', $user->getRoles(), true);
     }
 
     /**
@@ -119,6 +97,6 @@ class UserVoter extends Voter
      */
     private function canDelete(User $subject, UserInterface $user): bool
     {
-        return $subject !== $user;
+        return $subject !== $user && in_array('ROLE_ADMIN', $user->getRoles(), true);
     }
 }

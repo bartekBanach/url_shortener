@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ user.email }}
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">{{ 'user.profile'|trans }}</h2>
+                <a href="{{ path('profile_edit', {id: user.id})  }}" class="btn btn-light btn-sm text-black px-3 py-2">
+
+                    {{ 'action.edit_profile'|trans }}
+                </a>
+            </div>
+            <div class="card-body" style="font-size: 1.1rem;">
+                {% if user %}
+                    <div class="row mb-3">
+                        <div class="col-sm-3 font-weight-bold">
+                            {{ 'label.id'|trans }}
+                        </div>
+                        <div class="col-sm-9">
+                            {{ user.id }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 font-weight-bold">
+                            {{ 'label.email'|trans }}
+                        </div>
+                        <div class="col-sm-9">
+                            {{ user.email }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 font-weight-bold">
+                            {{ 'label.password'|trans }}
+                        </div>
+                        <div class="col-sm-9">
+                            <span class="text-monospace">{{ user.password }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 font-weight-bold">
+                            {{ 'label.is_verified'|trans }}
+                        </div>
+                        <div class="col-sm-9">
+                            <span class="badge {{ user.isVerified ? 'bg-success' : 'bg-danger' }}">
+                                {{ user.isVerified ? 'label.yes'|trans : 'label.no'|trans }}
+                            </span>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <div class="alert alert-warning">
+                        {{ 'message.record_not_found'|trans }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

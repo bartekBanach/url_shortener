@@ -28,6 +28,7 @@
                     <a href="{{ path('url_index') }}" class="nav-link {{ app.request.attributes.get('_route') == 'url_index' ? 'active' : '' }}">{{ 'navbar.urls'|trans }}</a>
                 </li>
 
+
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a href="{{ path('user_index') }}"
@@ -44,11 +45,12 @@
             <ul class="navbar-nav ms-auto nav-item d-flex align-items-center">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item">
-                        <span class="navbar-text">{{ app.user.email }}</span>
+                        <a href="{{ path('profile_index') }}" class="nav-link {{ app.request.attributes.get('_route') == 'profile_index' ? 'active' : '' }}">{{ app.user.email }}</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ path('app_logout') }}" class="nav-link">{{ 'action_logout'|trans }}</a>
                     </li>
+
                 {% else %}
                     <li class="nav-item">
                         <a href="{{ path('app_login') }}" class="nav-link">{{ 'action_login'|trans }}</a>

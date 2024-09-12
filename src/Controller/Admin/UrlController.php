@@ -2,7 +2,6 @@
 /**
  * URL controller.
  *
- * @license MIT License
  */
 
 namespace App\Controller\Admin;
@@ -14,7 +13,6 @@ use App\Resolver\UrlListInputFiltersDtoResolver;
 use App\Service\ClickServiceInterface;
 use App\Service\TagServiceInterface;
 use App\Service\UrlServiceInterface;
-use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +50,6 @@ class UrlController extends AbstractController
      *
      * @return Response HTTP response
      *
-     * @throws NonUniqueResultException
      */
     #[Route(name: 'admin_url_index', methods: 'GET')]
     public function index(#[MapQueryString(resolver: UrlListInputFiltersDtoResolver::class)] UrlListInputFiltersDto $filters, #[MapQueryParameter] int $page = 1): Response
