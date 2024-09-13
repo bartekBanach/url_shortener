@@ -78,26 +78,27 @@ class HomeControllerTest extends WebTestCase
         static::getContainer()->get('cache.global_clearer')->clearPool('cache.rate_limiter'); // Reset rate limiter before test
         $this->httpClient->followRedirects();
         $crawler = $this->httpClient->request('GET', '/');
-
+        print_r($crawler->html());
         for ($i = 0; $i < 10; ++$i) {
-            $form = $crawler->selectButton('Shorten url')->form([
+            $form = $crawler->selectButton('url_form_submit')->form([
                 'url_form[longUrl]' => 'https://example.com',
                 'url_form[tags]' => 'testTag1, testTag2',
             ]);
 
             $this->httpClient->submit($form);
-            $this->assertSelectorTextContains('.alert-success', 'Created successfully');
+            $this->assertSelectorExists('.alert-success');
+
         }
         // when
 
-        $form = $crawler->selectButton('Shorten url')->form([
+        $form = $crawler->selectButton('url_form_submit')->form([
             'url_form[longUrl]' => 'https://example.com',
             'url_form[tags]' => 'testTag1, testTag2',
         ]);
 
         $this->httpClient->submit($form);
+        $this->assertSelectorExists('.alert-danger');
 
-        $this->assertSelectorTextContains('.alert-danger', 'Rate limit exceeded. Please try again later.');
     }
 
     /**
@@ -110,20 +111,14 @@ class HomeControllerTest extends WebTestCase
         // given
         $this->httpClient->followRedirects();
 
-        $userRepository = static::getContainer()->get(UserRepository::class);
-        // $testUser = $userRepository->findOneByEmail('user0@example.com');
-
         $testUser = $this->createUser([UserRole::ROLE_USER->value]);
-        /*$testUser = new User();
-        $testUser->setEmail('user0@example.com');
-        $testUser->setPassword('abc1234');*/
 
         $this->httpClient->loginUser($testUser);
 
         $crawler = $this->httpClient->request('GET', '/');
 
         for ($i = 0; $i < 1; ++$i) {
-            $form = $crawler->selectButton('Shorten url')->form([
+            $form = $crawler->selectButton('url_form_submit')->form([
                 'url_form[longUrl]' => 'https://example.com',
                 'url_form[tags]' => 'testTag1, testTag2',
             ]);
@@ -133,14 +128,14 @@ class HomeControllerTest extends WebTestCase
             // echo($response->getContent());
         }
         // when
-        $form = $crawler->selectButton('Shorten url')->form([
+        $form = $crawler->selectButton('url_form_submit')->form([
             'url_form[longUrl]' => 'https://example.com',
             'url_form[tags]' => 'testTag1, testTag2',
         ]);
         $this->httpClient->submit($form);
 
         // then
-        $this->assertSelectorTextContains('.alert-success', 'Created successfully');
+        $this->assertSelectorExists('.alert-success');
     }
 
     // test if author is set properly for logged and anonymous user

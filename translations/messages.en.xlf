@@ -84,6 +84,200 @@
         <target>Access denied</target>
       </trans-unit>
 
+
+        <trans-unit id="message.edited_successfully">
+            <source>message.edited_successfully</source>
+            <target>Edited successfully</target>
+        </trans-unit>
+        <trans-unit id="error.access_denied">
+            <source>error.access_denied</source>
+            <target>Access denied</target>
+        </trans-unit>
+        <trans-unit id="message.registered_successfully">
+            <source>message.registered_successfully</source>
+            <target>Registered successfully</target>
+        </trans-unit>
+        <trans-unit id="title.url_create">
+            <source>title.url_create</source>
+            <target>Create URL</target>
+        </trans-unit>
+        <trans-unit id="title.url_delete">
+            <source>title.url_delete</source>
+            <target>Delete URL</target>
+        </trans-unit>
+        <trans-unit id="title.url_edit">
+            <source>title.url_edit</source>
+            <target>Edit URL</target>
+        </trans-unit>
+        <trans-unit id="title.url_list">
+            <source>title.url_list</source>
+            <target>URL List</target>
+        </trans-unit>
+        <trans-unit id="button.clear_filters">
+            <source>button.clear_filters</source>
+            <target>Clear filters</target>
+        </trans-unit>
+        <trans-unit id="label.long_url">
+            <source>label.long_url</source>
+            <target>Long URL</target>
+        </trans-unit>
+        <trans-unit id="label.short_url">
+            <source>label.short_url</source>
+            <target>Short URL</target>
+        </trans-unit>
+        <trans-unit id="label.created_at">
+            <source>label.created_at</source>
+            <target>Created at</target>
+        </trans-unit>
+        <trans-unit id="label.click_counts">
+            <source>label.click_counts</source>
+            <target>Click counts</target>
+        </trans-unit>
+        <trans-unit id="label.author">
+            <source>label.author</source>
+            <target>Author</target>
+        </trans-unit>
+        <trans-unit id="action.view">
+            <source>action.view</source>
+            <target>View</target>
+        </trans-unit>
+        <trans-unit id="label.all_tags">
+            <source>label.all_tags</source>
+            <target>All tags</target>
+        </trans-unit>
+        <trans-unit id="label.admin_panel">
+            <source>label.admin_panel</source>
+            <target>Admin panel</target>
+        </trans-unit>
+        <trans-unit id="label.users">
+            <source>label.users</source>
+            <target>Users</target>
+        </trans-unit>
+        <trans-unit id="label.urls">
+            <source>label.urls</source>
+            <target>URLs</target>
+        </trans-unit>
+        <trans-unit id="navbar.logo">
+            <source>navbar.logo</source>
+            <target>URL Shortener</target>
+        </trans-unit>
+        <trans-unit id="navbar.home">
+            <source>navbar.home</source>
+            <target>Home</target>
+        </trans-unit>
+        <trans-unit id="navbar.urls">
+            <source>navbar.urls</source>
+            <target>URLs</target>
+        </trans-unit>
+        <trans-unit id="navbar.admin">
+            <source>navbar.admin</source>
+            <target>Admin</target>
+        </trans-unit>
+        <trans-unit id="action_logout">
+            <source>action_logout</source>
+            <target>Logout</target>
+        </trans-unit>
+        <trans-unit id="action_login">
+            <source>action_login</source>
+            <target>Login</target>
+        </trans-unit>
+        <trans-unit id="action_register">
+            <source>action_register</source>
+            <target>Register</target>
+        </trans-unit>
+        <trans-unit id="action.back_to_list">
+            <source>action.back_to_list</source>
+            <target>Back to list</target>
+        </trans-unit>
+        <trans-unit id="message.form_error">
+            <source>message.form_error</source>
+            <target>There was an error in the form</target>
+        </trans-unit>
+        <trans-unit id="title.url_shortener">
+            <source>title.url_shortener</source>
+            <target>URL Shortener</target>
+        </trans-unit>
+        <trans-unit id="title.shorten_url">
+            <source>title.shorten_url</source>
+            <target>Shorten URL</target>
+        </trans-unit>
+        <trans-unit id="title.user_edit">
+            <source>title.user_edit</source>
+            <target>Edit User</target>
+        </trans-unit>
+        <trans-unit id="user.profile">
+            <source>user.profile</source>
+            <target>Profile</target>
+        </trans-unit>
+        <trans-unit id="action.edit_profile">
+            <source>action.edit_profile</source>
+            <target>Edit Profile</target>
+        </trans-unit>
+        <trans-unit id="label.email">
+            <source>label.email</source>
+            <target>Email</target>
+        </trans-unit>
+        <trans-unit id="label.password">
+            <source>label.password</source>
+            <target>Password</target>
+        </trans-unit>
+        <trans-unit id="label.is_verified">
+            <source>label.is_verified</source>
+            <target>Verified</target>
+        </trans-unit>
+        <trans-unit id="label.yes">
+            <source>label.yes</source>
+            <target>Yes</target>
+        </trans-unit>
+        <trans-unit id="label.no">
+            <source>label.no</source>
+            <target>No</target>
+        </trans-unit>
+        <trans-unit id="title.tag_create">
+            <source>title.tag_create</source>
+            <target>Create Tag</target>
+        </trans-unit>
+        <trans-unit id="title.tag_delete">
+            <source>title.tag_delete</source>
+            <target>Delete Tag</target>
+        </trans-unit>
+        <trans-unit id="title.tag_edit">
+            <source>title.tag_edit</source>
+            <target>Edit Tag</target>
+        </trans-unit>
+        <trans-unit id="label.updated_at">
+            <source>label.updated_at</source>
+            <target>Updated at</target>
+        </trans-unit>
+        <trans-unit id="title.tag_details">
+            <source>title.tag_details</source>
+            <target>Tag Details</target>
+        </trans-unit>
+        <trans-unit id="title.user_create">
+            <source>title.user_create</source>
+            <target>Create User</target>
+        </trans-unit>
+        <trans-unit id="title.user_delete">
+            <source>title.user_delete</source>
+            <target>Delete User</target>
+        </trans-unit>
+        <trans-unit id="title.user_list">
+            <source>title.user_list</source>
+            <target>User List</target>
+        </trans-unit>
+        <trans-unit id="label.roles">
+            <source>label.roles</source>
+            <target>Roles</target>
+        </trans-unit>
+        <trans-unit id="title.user_details">
+            <source>title.user_details</source>
+            <target>User Details</target>
+        </trans-unit>
+        <trans-unit id="login.error.user_not_found">
+            <source>login.error.user_not_found</source>
+            <target>User not found</target>
+        </trans-unit>
+
     </body>
   </file>
 </xliff>

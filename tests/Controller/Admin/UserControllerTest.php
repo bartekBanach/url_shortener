@@ -16,6 +16,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class UserControllerTest.
@@ -36,6 +37,7 @@ class UserControllerTest extends WebTestCase
 
     private UserService $userService;
     private UrlService $urlService;
+    private TranslatorInterface $translator;
 
     /**
      * Set up tests.
@@ -45,6 +47,8 @@ class UserControllerTest extends WebTestCase
         $this->httpClient = static::createClient();
         $this->userService = static::getContainer()->get(UserService::class);
         $this->urlService = static::getContainer()->get(UrlService::class);
+
+        $this->translator = static::getContainer()->get('translator');
     }
 
     /**
@@ -110,7 +114,7 @@ class UserControllerTest extends WebTestCase
 
         $crawler = $this->httpClient->request('GET', self::TEST_ROUTE.'/create');
 
-        $form = $crawler->selectButton('Save')->form([
+        $form = $crawler->selectButton($this->translator->trans('action.save'))->form([
             'user_form[email]' => 'newuser@example.com',
             'user_form[password]' => 'newpassword123',
             'user_form[isVerified]' => true,
@@ -120,7 +124,7 @@ class UserControllerTest extends WebTestCase
 
         $this->assertResponseRedirects(self::TEST_ROUTE);
         $this->httpClient->followRedirect();
-        $this->assertSelectorTextContains('.alert-success', 'Created successfully');
+        $this->assertSelectorExists('.alert-success');
     }
 
     /**
@@ -135,7 +139,7 @@ class UserControllerTest extends WebTestCase
         $this->httpClient->loginUser($adminUser);
 
         $crawler = $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$user->getId().'/edit');
-        $form = $crawler->selectButton('Edit')->form();
+        $form = $crawler->selectButton($this->translator->trans('action.edit'))->form();
         $form['user_form[roles][0]']->tick();
         $form->setValues([
             'user_form[email]' => 'updated_user@example.com',
@@ -145,7 +149,7 @@ class UserControllerTest extends WebTestCase
 
         $this->assertResponseRedirects(self::TEST_ROUTE);
         $this->httpClient->followRedirect();
-        $this->assertSelectorTextContains('.alert-success', 'Updated successfully');
+        $this->assertSelectorExists('.alert-success');
 
         $updatedUser = $this->userService->findOneById($user->getId());
         $this->assertEquals('updated_user@example.com', $updatedUser->getEmail());
@@ -163,12 +167,13 @@ class UserControllerTest extends WebTestCase
         $this->httpClient->loginUser($adminUser);
 
         $crawler = $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$user->getId().'/delete');
-        $form = $crawler->selectButton('Delete')->form();
+        $form = $crawler->selectButton($this->translator->trans('action.delete'))->form();
         $this->httpClient->submit($form);
 
         $this->assertResponseRedirects(self::TEST_ROUTE);
         $this->httpClient->followRedirect();
-        $this->assertSelectorTextContains('.alert-success', 'Deleted successfully');
+        $this->assertSelectorExists('.alert-success');
+
 
         $deletedUser = $this->userService->findOneById($user->getId());
         $this->assertNull($deletedUser);

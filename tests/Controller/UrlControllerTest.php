@@ -10,6 +10,7 @@ use App\Entity\Url;
 use App\Entity\User;
 use App\Service\UrlService;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Test the UrlController functionality.
@@ -22,6 +23,8 @@ class UrlControllerTest extends WebTestCase
     /** @var UrlService Service for URL-related operations */
     private UrlService $urlService;
 
+    private TranslatorInterface $translator;
+
     /**
      * Set up the test environment.
      * Initializes the HTTP client and URL service.
@@ -32,6 +35,8 @@ class UrlControllerTest extends WebTestCase
         $this->httpClient = static::createClient();
         $this->httpClient->followRedirects(true);
         $this->urlService = static::getContainer()->get(UrlService::class);
+        $this->translator = static::getContainer()->get('translator');
+
     }
 
 
@@ -51,7 +56,7 @@ class UrlControllerTest extends WebTestCase
         $this->httpClient->request('GET', sprintf('/url/%d', $url->getId()));
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'URL Details');
+        $this->assertSelectorTextContains('h1', $this->translator->trans('title.url_details'));
     }
 
     /**

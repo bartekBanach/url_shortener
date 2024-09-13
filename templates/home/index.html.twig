@@ -11,13 +11,14 @@
 
     <div class="max-w-md mx-auto bg-white">
         <h2 class="text-lg font-semibold mb-4">{{ 'title.shorten_url' | trans }}</h2>
-        {{ form_widget(form) }}
+
+        {{ form_row(form.longUrl) }}
+        {{ form_row(form.tags) }}
 
         <div class="text-center mt-4">
-            <input type="submit" value="{{ 'action.shorten_url'|trans }}" class="btn btn-primary"/>
+            {{ form_widget(form.submit) }}
         </div>
     </div>
-
 
     {{ form_end(form) }}
 {% endblock %}

@@ -1,0 +1,76 @@
+ ----------- ------------ --------------------------------------------------------- ------------------------------------------ ------------------------------------------ 
+  State       Domain       Id                                                        Message Preview (pl)                       Fallback Message Preview (en)             
+ ----------- ------------ --------------------------------------------------------- ------------------------------------------ ------------------------------------------ 
+   missing    validators   There is already an account with this email               There is already an account with this...   There is already an account with this...  
+   missing    validators   You should agree to our terms.                            You should agree to our terms.             You should agree to our terms.            
+   missing    validators   Please enter a password                                   Please enter a password                    Please enter a password                   
+   missing    validators   Your password should be at least {{ limit }} characters   Your password should be at least {{ l...   Your password should be at least {{ l...  
+   missing    validators   Please enter an email                                     Please enter an email                      Please enter an email                     
+   missing    messages     message.created_successfully                              message.created_successfully               Created successfully                      
+   missing    messages     message.edited_successfully                               message.edited_successfully                Edited successfully                       
+   missing    messages     message.deleted_successfully                              message.deleted_successfully               Deleted successfully                      
+   missing    messages     message.updated_successfully                              message.updated_successfully               Updated successfully                      
+   missing    messages     message.rate_limit_exceeded                               message.rate_limit_exceeded                Rate limit exceeded. Please try again...  
+   missing    messages     error.access_denied                                       error.access_denied                        Access denied                             
+   missing    messages     message.registered_successfully                           message.registered_successfully            Registered successfully                   
+   missing    messages     message.record_not_found                                  message.record_not_found                   Record not found.                         
+   missing    messages     message.access_denied                                     message.access_denied                      Access denied                             
+   missing    messages     title.url_create                                          title.url_create                           Create URL                                
+   missing    messages     action.save                                               action.save                                Save                                      
+   missing    messages     title.url_delete                                          title.url_delete                           Delete URL                                
+   missing    messages     action.delete                                             action.delete                              Delete                                    
+   missing    messages     title.url_edit                                            title.url_edit                             Edit URL                                  
+   missing    messages     action.edit                                               action.edit                                Edit                                      
+   missing    messages     title.url_list                                            title.url_list                             URL List                                  
+   missing    messages     button.clear_filters                                      button.clear_filters                       Clear filters                             
+   missing    messages     label.id                                                  label.id                                   Id                                        
+   missing    messages     label.long_url                                            label.long_url                             Long URL                                  
+   missing    messages     label.short_url                                           label.short_url                            Short URL                                 
+   missing    messages     label.created_at                                          label.created_at                           Created at                                
+   missing    messages     label.click_Counts                                        label.click_Counts                         label.click_Counts                        
+   missing    messages     label.tags                                                label.tags                                 Tags                                      
+   missing    messages     label.author                                              label.author                               Author                                    
+   missing    messages     label.actions                                             label.actions                              Actions                                   
+   missing    messages     action.view                                               action.view                                View                                      
+   missing    messages     message.empty_list                                        message.empty_list                         List is empty.                            
+   missing    messages     label.all_tags                                            label.all_tags                             All tags                                  
+   missing    messages     title.url_details                                         title.url_details                          URL Details                               
+   missing    messages     label.admin_panel                                         label.admin_panel                          Admin panel                               
+   missing    messages     label.users                                               label.users                                Users                                     
+   missing    messages     label.urls                                                label.urls                                 URLs                                      
+   missing    messages     navbar.logo                                               navbar.logo                                URL Shortener                             
+   missing    messages     navbar.home                                               navbar.home                                Home                                      
+   missing    messages     navbar.urls                                               navbar.urls                                URLs                                      
+   missing    messages     navbar.admin                                              navbar.admin                               Admin                                     
+   missing    messages     action_logout                                             action_logout                              Logout                                    
+   missing    messages     action_login                                              action_login                               Login                                     
+   missing    messages     action_register                                           action_register                            Register                                  
+   missing    messages     action.back_to_list                                       action.back_to_list                        Back to list                              
+   missing    messages     message.form_error                                        message.form_error                         There was an error in the form            
+   missing    messages     title.url_shortener                                       title.url_shortener                        URL Shortener                             
+   missing    messages     title.shorten_url                                         title.shorten_url                          Shorten URL                               
+   missing    messages     action.shorten_url                                        action.shorten_url                         Shorten url                               
+   missing    messages     title.user_edit                                           title.user_edit                            Edit User                                 
+   missing    messages     user.profile                                              user.profile                               Profile                                   
+   missing    messages     action.edit_profile                                       action.edit_profile                        Edit Profile                              
+   missing    messages     label.email                                               label.email                                Email                                     
+   missing    messages     label.password                                            label.password                             Password                                  
+   missing    messages     label.is_verified                                         label.is_verified                          Verified                                  
+   missing    messages     label.yes                                                 label.yes                                  Yes                                       
+   missing    messages     label.no                                                  label.no                                   No                                        
+   missing    messages     title.tag_create                                          title.tag_create                           Create Tag                                
+   missing    messages     title.tag_delete                                          title.tag_delete                           Delete Tag                                
+   missing    messages     title.tag_edit                                            title.tag_edit                             Edit Tag                                  
+   missing    messages     title.tag_list                                            title.tag_list                             Tag list                                  
+   missing    messages     label.title                                               label.title                                Title                                     
+   missing    messages     label.updated_at                                          label.updated_at                           Updated at                                
+   missing    messages     title.tag_details                                         title.tag_details                          Tag Details                               
+   missing    messages     label.click_counts                                        label.click_counts                         Click counts                              
+   missing    messages     title.user_create                                         title.user_create                          Create User                               
+   missing    messages     title.user_delete                                         title.user_delete                          Delete User                               
+   missing    messages     title.user_list                                           title.user_list                            User List                                 
+   missing    messages     label.roles                                               label.roles                                Roles                                     
+   missing    messages     title.user_details                                        title.user_details                         User Details                              
+   missing    security     login.error.user_not_found                                login.error.user_not_found                 login.error.user_not_found                
+ ----------- ------------ --------------------------------------------------------- ------------------------------------------ ------------------------------------------ 
+

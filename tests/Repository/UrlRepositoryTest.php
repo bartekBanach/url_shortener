@@ -8,6 +8,7 @@ namespace App\Tests\Repository;
 use App\Dto\UrlListFiltersDto;
 use App\Entity\Url;
 use App\Entity\User;
+use App\Repository\UrlRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\NotSupported;
@@ -23,6 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class UrlRepositoryTest extends KernelTestCase
 {
     private ?EntityManager $entityManager;
+    private UrlRepository $urlRepository;
 
     /**
      * This method is called before each test.
