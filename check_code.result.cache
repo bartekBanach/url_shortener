@@ -1,88 +1,12 @@
-   1) src\Controller\Admin\UrlController.php ([33mphpdoc_trim[39m)
-   2) src\Controller\ProfileController.php ([33mblank_lines_before_namespace[39m)
-   3) src\Controller\RegistrationController.php ([33mphpdoc_trim[39m)
-   4) src\Controller\SecurityController.php ([33mphpdoc_trim[39m)
-   5) src\Controller\UrlController.php ([33mclass_attributes_separation[39m)
-   6) src\DataFixtures\AppFixtures.php ([33mno_superfluous_phpdoc_tags, phpdoc_trim[39m)
-   7) src\Dto\UrlListInputFiltersDto.php ([33mphpdoc_summary[39m)
-   8) src\Entity\Click.php ([33mno_superfluous_phpdoc_tags, phpdoc_trim[39m)
-   9) src\Entity\Url.php ([33mno_superfluous_phpdoc_tags, phpdoc_trim[39m)
-  10) src\Entity\User.php ([33mno_superfluous_phpdoc_tags, phpdoc_trim[39m)
-  11) src\Form\RegistrationFormType.php ([33mno_superfluous_phpdoc_tags, phpdoc_trim[39m)
-  12) src\Form\Type\UrlType.php ([33mno_unused_imports[39m)
-  13) src\Repository\UrlRepository.php ([33mclass_attributes_separation[39m)
-  14) src\Resolver\UrlListInputFiltersDtoResolver.php ([33mphpdoc_summary[39m)
-  15) src\Security\EmailVerifier.php ([33mno_superfluous_phpdoc_tags, phpdoc_trim[39m)
-  16) src\Security\LoginFormAuthenticator.php ([33marray_indentation, align_multiline_comment, phpdoc_indent[39m)
-  17) src\Service\ClickServiceInterface.php ([33mblank_lines_before_namespace[39m)
-  18) src\Service\UrlService.php ([33mclass_attributes_separation, no_unused_imports[39m)
-  19) src\Service\UrlServiceInterface.php ([33mclass_attributes_separation[39m)
-  20) src\Service\UserService.php ([33mphpdoc_trim[39m)
 
-Found 20 of 45 files that can be fixed in 4.832 seconds, 18.00 MB memory used
-   1) tests\bootstrap.php ([33mno_unused_imports, single_blank_line_at_eof[39m)
-   2) tests\Controller\Admin\TagControllerTest.php ([33mclass_attributes_separation, phpdoc_trim[39m)
-   3) tests\Controller\Admin\UrlControllerTest.php ([33malign_multiline_comment, phpdoc_indent[39m)
-   4) tests\Controller\UrlControllerTest.php ([33mclass_attributes_separation[39m)
-   5) tests\Repository\UserRepositoryTest.php ([33mclass_attributes_separation, phpdoc_annotation_without_dot, no_superfluous_phpdoc_tags, phpdoc_trim, blank_lines_before_namespace[39m)
-   6) tests\Service\UrlServiceTest.php ([33mphpdoc_annotation_without_dot, no_superfluous_phpdoc_tags, phpdoc_separation, phpdoc_trim, phpdoc_trim_consecutive_blank_line_separation[39m)
+Found 0 of 45 files that can be fixed in 1.600 seconds, 18.00 MB memory used
 
-Found 6 of 10 files that can be fixed in 1.244 seconds, 18.00 MB memory used
+Found 0 of 10 files that can be fixed in 0.670 seconds, 18.00 MB memory used
+ ------- -------- ---- ---------------------- 
+ [32m State [39m [32m Domain [39m [32m Id [39m [32m Message Preview (en) [39m 
+ ------- -------- ---- ---------------------- 
 
-FILE: C:\xampp\htdocs\symfony-test\tests\Controller\HomeControllerTest.php
-------------------------------------------------------------------------------------------------------------------------
-FOUND 2 ERRORS AFFECTING 2 LINES
-------------------------------------------------------------------------------------------------------------------------
-  89 | ERROR | [x] Blank line found at end of control structure
- 100 | ERROR | [x] Function closing brace must go on the next line following the body; found 1 blank lines before brace
-------------------------------------------------------------------------------------------------------------------------
-PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
-------------------------------------------------------------------------------------------------------------------------
+ ------- -------- ---- ---------------------- ------------------------------- 
+ [32m State [39m [32m Domain [39m [32m Id [39m [32m Message Preview (pl) [39m [32m Fallback Message Preview (en) [39m 
+ ------- -------- ---- ---------------------- ------------------------------- 
 
-
-FILE: C:\xampp\htdocs\symfony-test\tests\Controller\UrlControllerTest.php
------------------------------------------------------------------------------------------------------------------------
-FOUND 1 ERROR AFFECTING 1 LINE
------------------------------------------------------------------------------------------------------------------------
- 40 | ERROR | [x] Function closing brace must go on the next line following the body; found 1 blank lines before brace
------------------------------------------------------------------------------------------------------------------------
-PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
------------------------------------------------------------------------------------------------------------------------
-
-Time: 3.12 secs; Memory: 8MB
-
- ----------- ------------ --------------------------------------------------------- ------------------------------------------ 
- [32m State     [39m [32m Domain     [39m [32m Id                                                      [39m [32m Message Preview (en)                     [39m 
- ----------- ------------ --------------------------------------------------------- ------------------------------------------ 
-  [37;41m missing [39;49m   validators   [36;1mThere is already an account with this email[39;22m               There is already an account with this...  
-  [37;41m missing [39;49m   validators   [36;1mYou should agree to our terms.[39;22m                            You should agree to our terms.            
-  [37;41m missing [39;49m   validators   [36;1mPlease enter a password[39;22m                                   Please enter a password                   
-  [37;41m missing [39;49m   validators   [36;1mYour password should be at least {{ limit }} characters[39;22m   Your password should be at least {{ l...  
-  [37;41m missing [39;49m   validators   [36;1mPlease enter an email[39;22m                                     Please enter an email                     
-  [37;41m missing [39;49m   security     [36;1mlogin.error.user_not_found[39;22m                                login.error.user_not_found                
- ----------- ------------ --------------------------------------------------------- ------------------------------------------ 
-
- ----------- ------------ --------------------------------------------------------- ------------------------------------------ ------------------------------------------ 
- [32m State     [39m [32m Domain     [39m [32m Id                                                      [39m [32m Message Preview (pl)                     [39m [32m Fallback Message Preview (en)            [39m 
- ----------- ------------ --------------------------------------------------------- ------------------------------------------ ------------------------------------------ 
-  [37;41m missing [39;49m   validators   [36;1mThere is already an account with this email[39;22m               There is already an account with this...   There is already an account with this...  
-  [37;41m missing [39;49m   validators   [36;1mYou should agree to our terms.[39;22m                            You should agree to our terms.             You should agree to our terms.            
-  [37;41m missing [39;49m   validators   [36;1mPlease enter a password[39;22m                                   Please enter a password                    Please enter a password                   
-  [37;41m missing [39;49m   validators   [36;1mYour password should be at least {{ limit }} characters[39;22m   Your password should be at least {{ l...   Your password should be at least {{ l...  
-  [37;41m missing [39;49m   validators   [36;1mPlease enter an email[39;22m                                     Please enter an email                      Please enter an email                     
-  [37;41m missing [39;49m   security     [36;1mlogin.error.user_not_found[39;22m                                login.error.user_not_found                 login.error.user_not_found                
- ----------- ------------ --------------------------------------------------------- ------------------------------------------ ------------------------------------------ 
-
-[32m[notice] Migrating [39m[33mup[39m[32m to [39m[33mDoctrineMigrations\Version20240910002736[39m
-[32m[notice] finished in [39m[33m358[39m[32mms, used [39m[33m24M[39m[32m memory, [39m[33m5[39m[32m migrations executed, [39m[33m18[39m[32m sql queries[39m
-
-[30;42m                                                                                                                        [39;49m
-[30;42m [OK] Successfully migrated to version: DoctrineMigrations\Version20240910002736                                        [39;49m
-[30;42m                                                                                                                        [39;49m
-
-
-   [33m>[39m [32mpurging database[39m
-   [33m>[39m [32mloading App\DataFixtures\AppFixtures[39m
-   [33m>[39m [32mloading App\DataFixtures\TagFixtures[39m
-   [33m>[39m [32mloading App\DataFixtures\UserFixtures[39m
-   [33m>[39m [32mloading App\DataFixtures\UrlFixtures[39m
