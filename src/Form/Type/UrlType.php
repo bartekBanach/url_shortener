@@ -41,7 +41,7 @@ class UrlType extends AbstractType
     {
         $builder
             ->add('longUrl', TextType::class, [
-                'label' => 'label.url',
+                'label' => 'label.long_url',
                 'required' => true,
             ]);
         $builder->add(

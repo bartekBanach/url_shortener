@@ -28,7 +28,7 @@ class UrlService implements UrlServiceInterface
      *
      * @constant int
      */
-    private const PAGINATOR_ITEMS_PER_PAGE = 3;
+    private const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * Constructor.

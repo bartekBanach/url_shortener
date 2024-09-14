@@ -209,6 +209,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Sets the verification status.
      *
      * @param bool $isVerified Verification status
+     *
+     * @return static This instance for method chaining
      */
     public function setIsVerified(bool $isVerified): self
     {
