@@ -97,7 +97,6 @@ class UrlController extends AbstractController
         );
     }
 
-
     /**
      * Edit action.
      *

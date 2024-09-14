@@ -1,7 +1,6 @@
 <?php
 /**
  * Security controller for handling authentication-related actions.
- *
  */
 
 namespace App\Controller;

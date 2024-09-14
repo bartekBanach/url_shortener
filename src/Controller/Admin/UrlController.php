@@ -1,7 +1,6 @@
 <?php
 /**
  * URL controller.
- *
  */
 
 namespace App\Controller\Admin;
@@ -49,7 +48,6 @@ class UrlController extends AbstractController
      * @param int                    $page    Page number
      *
      * @return Response HTTP response
-     *
      */
     #[Route(name: 'admin_url_index', methods: 'GET')]
     public function index(#[MapQueryString(resolver: UrlListInputFiltersDtoResolver::class)] UrlListInputFiltersDto $filters, #[MapQueryParameter] int $page = 1): Response

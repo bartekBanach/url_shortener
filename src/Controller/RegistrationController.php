@@ -1,7 +1,6 @@
 <?php
 /**
  * Controller handling user registration and email verification.
- *
  */
 
 namespace App\Controller;

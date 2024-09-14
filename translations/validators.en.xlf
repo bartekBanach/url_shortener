@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="user.email.not_blank">
+                <source>user.email.not_blank</source>
+                <target>Please enter an email.</target>
+            </trans-unit>
+            <trans-unit id="user.agree_terms">
+                <source>user.agree_terms</source>
+                <target>You should agree to our terms.</target>
+            </trans-unit>
+            <trans-unit id="user.password.min_length">
+                <source>user.password.min_length</source>
+                <target>Your password should be at least {{ limit }} characters.</target>
+            </trans-unit>
+
+            <trans-unit id="Please enter an email">
+                <source>Please enter an email</source>
+                <target>Please enter an email</target>
+            </trans-unit>
+            <trans-unit id="Please enter a password">
+                <source>Please enter a password</source>
+                <target>Please enter a password</target>
+            </trans-unit>
+            <trans-unit id="user.password.not_blank">
+                <source>user.password.not_blank</source>
+                <target>Please enter a password.</target>
+            </trans-unit>
+            <trans-unit id="user.email.unique">
+                <source>user.email.unique</source>
+                <target>There is already an account with this email.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

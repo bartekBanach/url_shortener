@@ -97,7 +97,6 @@ class UrlRepository extends ServiceEntityRepository
         return $this->findOneBy(['shortUrl' => $shortUrl]);
     }
 
-
     /**
      * Find by id.
      *

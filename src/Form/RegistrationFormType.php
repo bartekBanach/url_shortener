@@ -29,8 +29,6 @@ class RegistrationFormType extends AbstractType
      *
      * @param FormBuilderInterface $builder Form builder instance
      * @param array                $options Additional options for the form
-     *
-     * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -40,7 +38,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'user.agree_terms',
                     ]),
                 ],
             ])
@@ -51,11 +49,11 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'user.password.not_blank',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'user.password.min_length',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -68,8 +66,6 @@ class RegistrationFormType extends AbstractType
      * Configure default options for the form.
      *
      * @param OptionsResolver $resolver Options resolver
-     *
-     * @return void
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

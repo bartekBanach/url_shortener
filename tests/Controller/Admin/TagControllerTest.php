@@ -162,8 +162,6 @@ class TagControllerTest extends WebTestCase
         $this->assertNull($deletedTag);
     }
 
-
-
     /**
      * Create a tag for testing.
      *
@@ -186,7 +184,6 @@ class TagControllerTest extends WebTestCase
      * @param array $roles User roles
      *
      * @return User User entity
-     *
      */
     private function createUser(array $roles): User
     {

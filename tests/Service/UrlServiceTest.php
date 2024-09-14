@@ -111,10 +111,8 @@ class UrlServiceTest extends TestCase
      *
      * @dataProvider dataProviderForBase62Encode
      *
-     * @param int    $num      The number to encode.
-     * @param string $expected The expected encoded string.
-     *
-     * @return void
+     * @param int    $num      the number to encode
+     * @param string $expected the expected encoded string
      *
      * @throws \ReflectionException
      */
@@ -133,8 +131,6 @@ class UrlServiceTest extends TestCase
 
     /**
      * Test generateRandomBase62Code method.
-     *
-     * @return void
      *
      * @throws \ReflectionException
      */
@@ -155,7 +151,7 @@ class UrlServiceTest extends TestCase
     /**
      * Data provider for testBase62Encode().
      *
-     * @return array
+     * @return array Test data
      */
     public function dataProviderForBase62Encode(): array
     {

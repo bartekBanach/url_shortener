@@ -36,8 +36,6 @@ class EmailVerifier
      * @param string         $verifyEmailRouteName Route name used to generate the verification URL
      * @param User           $user                 The user entity for whom the email is sent
      * @param TemplatedEmail $email                The email template being sent
-     *
-     * @return void
      */
     public function sendEmailConfirmation(string $verifyEmailRouteName, User $user, TemplatedEmail $email): void
     {
@@ -62,9 +60,6 @@ class EmailVerifier
      *
      * @param Request $request The HTTP request containing the confirmation details
      * @param User    $user    The user entity being verified
-     *
-     * @return void
-     *
      */
     public function handleEmailConfirmation(Request $request, User $user): void
     {

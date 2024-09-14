@@ -36,9 +36,7 @@ class UrlControllerTest extends WebTestCase
         $this->httpClient->followRedirects(true);
         $this->urlService = static::getContainer()->get(UrlService::class);
         $this->translator = static::getContainer()->get('translator');
-
     }
-
 
     /**
      * Test that an author can view the URL details.
@@ -76,7 +74,6 @@ class UrlControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(403); // Assert that the response status code is 403 Forbidden
     }
 
-
     /**
      * Create a User entity with unique email and predefined roles and password.
      *
@@ -96,7 +93,6 @@ class UrlControllerTest extends WebTestCase
 
         return $user;
     }
-
 
     /**
      * Create a Url entity with an optional author.

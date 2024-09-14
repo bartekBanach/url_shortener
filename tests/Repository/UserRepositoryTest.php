@@ -2,6 +2,7 @@
 /**
  * Tests for User Repository.
  */
+
 namespace App\Tests\Repository;
 
 use App\Entity\Url;
@@ -36,7 +37,6 @@ class UserRepositoryTest extends KernelTestCase
         $this->purgeDatabase();
     }
 
-
     /**
      * This method is called after each test.
      */
@@ -47,8 +47,6 @@ class UserRepositoryTest extends KernelTestCase
         $this->entityManager->close();
         $this->entityManager = null;
     }
-
-
 
     /**
      * Test queryAll method.
@@ -205,8 +203,6 @@ class UserRepositoryTest extends KernelTestCase
 
     /**
      * Purges the database before each test.
-     *
-     * @return void
      */
     private function purgeDatabase(): void
     {
@@ -217,10 +213,10 @@ class UserRepositoryTest extends KernelTestCase
     /**
      * Helper function to create a user.
      *
-     * @param string $email    The user's email.
-     * @param string $password The user's password.
+     * @param string $email    the user's email
+     * @param string $password the user's password
      *
-     * @return User The created user entity.
+     * @return User the created user entity
      */
     private function createUser(string $email, string $password): User
     {

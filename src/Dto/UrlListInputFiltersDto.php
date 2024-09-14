@@ -1,6 +1,6 @@
 <?php
 /**
- * UrlListInputFiltersDto
+ * UrlListInputFiltersDto.
  */
 
 namespace App\Dto;

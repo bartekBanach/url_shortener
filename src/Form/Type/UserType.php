@@ -40,7 +40,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter an email',
+                        'message' => 'user.email.not_blank',
                     ]),
                 ],
             ])
@@ -49,7 +49,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'user.password.not_blank',
                     ]),
                 ],
             ])

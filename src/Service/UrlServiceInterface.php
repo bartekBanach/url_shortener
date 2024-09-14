@@ -56,7 +56,6 @@ interface UrlServiceInterface
      */
     public function findOneById(string $id): ?Url;
 
-
     /**
      * Get paginated list.
      *

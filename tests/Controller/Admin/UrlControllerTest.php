@@ -1,8 +1,8 @@
 <?php
 
 /**
-* Tests for Url Controller.
-*/
+ * Tests for Url Controller.
+ */
 
 namespace App\Tests\Controller\Admin;
 
@@ -15,29 +15,29 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
-* Class UrlControllerTest.
-*/
+ * Class UrlControllerTest.
+ */
 class UrlControllerTest extends WebTestCase
 {
-/**
-* Test route.
-*
-* @const string
-*/
+    /**
+     * Test route.
+     *
+     * @const string
+     */
     public const TEST_ROUTE = '/admin/url';
 
-/**
-* Test client.
-*/
+    /**
+     * Test client.
+     */
     private KernelBrowser $httpClient;
 
     private UrlServiceInterface $urlService;
     private TranslatorInterface $translator;
     private UserService $userService;
 
-/**
-* Set up tests.
-*/
+    /**
+     * Set up tests.
+     */
     public function setUp(): void
     {
         $this->httpClient = static::createClient();
@@ -46,9 +46,9 @@ class UrlControllerTest extends WebTestCase
         $this->translator = static::getContainer()->get('translator');
     }
 
-/**
-* Test index route for admin user.
-*/
+    /**
+     * Test index route for admin user.
+     */
     public function testIndexRouteAdminUser(): void
     {
         $expectedStatusCode = 200;
@@ -62,9 +62,9 @@ class UrlControllerTest extends WebTestCase
         $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
 
-/**
-* Test index route for regular user.
-*/
+    /**
+     * Test index route for regular user.
+     */
     public function testIndexRouteRegularUser(): void
     {
         $expectedStatusCode = 403;
@@ -79,8 +79,8 @@ class UrlControllerTest extends WebTestCase
     }
 
     /**
-    * Test show action.
-    */
+     * Test show action.
+     */
     public function testShowAction(): void
     {
         $expectedStatusCode = 200;
@@ -97,8 +97,8 @@ class UrlControllerTest extends WebTestCase
     }
 
     /**
-    * Test create action with form submission.
-    */
+     * Test create action with form submission.
+     */
     public function testCreateAction(): void
     {
         $adminUser = $this->createUser(['ROLE_ADMIN']);
@@ -118,9 +118,9 @@ class UrlControllerTest extends WebTestCase
         $this->assertSelectorExists('.alert-success');
     }
 
-/**
-* Test edit action.
-*/
+    /**
+     * Test edit action.
+     */
     public function testEditAction(): void
     {
         $adminUser = $this->createUser(['ROLE_ADMIN']);
@@ -142,9 +142,9 @@ class UrlControllerTest extends WebTestCase
         $this->assertEquals('https://updated-url.com', $updatedUrl->getLongUrl());
     }
 
-/**
-* Test delete action.
-*/
+    /**
+     * Test delete action.
+     */
     public function testDeleteAction(): void
     {
         $adminUser = $this->createUser(['ROLE_ADMIN']);
@@ -163,11 +163,11 @@ class UrlControllerTest extends WebTestCase
         $this->assertNull($deletedUrl);
     }
 
-/**
-* Create a URL for testing.
-*
-* @return Url URL entity
-*/
+    /**
+     * Create a URL for testing.
+     *
+     * @return Url URL entity
+     */
     private function createUrl(): Url
     {
         $url = new Url();
@@ -177,13 +177,13 @@ class UrlControllerTest extends WebTestCase
         return $url;
     }
 
-/**
-* Create a user for testing.
-*
-* @param array $roles User roles
-*
-* @return User User entity
-*/
+    /**
+     * Create a user for testing.
+     *
+     * @param array $roles User roles
+     *
+     * @return User User entity
+     */
     private function createUser(array $roles): User
     {
         $user = new User();

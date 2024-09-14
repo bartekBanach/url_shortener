@@ -1,7 +1,6 @@
 <?php
 /**
  * Click entity.
- *
  */
 
 namespace App\Entity;
@@ -88,8 +87,6 @@ class Click
      * Setter for the creation timestamp of the click.
      *
      * @param \DateTimeImmutable $createdAt The creation timestamp of the click
-     *
-     * @return static
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -112,8 +109,6 @@ class Click
      * Setter for the IP address of the clicker.
      *
      * @param string $ipAddress The IP address of the clicker
-     *
-     * @return static
      */
     public function setIpAddress(string $ipAddress): static
     {
@@ -136,8 +131,6 @@ class Click
      * Setter for the user agent string of the clicker.
      *
      * @param string $userAgent The user agent string of the clicker
-     *
-     * @return static
      */
     public function setUserAgent(string $userAgent): static
     {
@@ -160,8 +153,6 @@ class Click
      * Setter for the URL associated with the click.
      *
      * @param Url|null $url The URL entity that this click is associated with
-     *
-     * @return static
      */
     public function setUrl(?Url $url): static
     {

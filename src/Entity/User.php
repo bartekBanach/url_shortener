@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'email_idx', columns: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'user.email.unique')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Email.
      */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'user.email.not_blank')]
     #[Assert\Email]
     private ?string $email;
 
@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Password.
      */
     #[ORM\Column(type: 'string')]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'user.password.not_blank')]
     private ?string $password;
 
     /**
@@ -209,8 +209,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Sets the verification status.
      *
      * @param bool $isVerified Verification status
-     *
-     * @return self
      */
     public function setIsVerified(bool $isVerified): self
     {

@@ -82,7 +82,6 @@ class UserService implements UserServiceInterface
      * @param int $id User id
      *
      * @return User|null User entity
-     *
      */
     public function findOneById(int $id): ?User
     {

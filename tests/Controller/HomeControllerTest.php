@@ -86,7 +86,6 @@ class HomeControllerTest extends WebTestCase
 
             $this->httpClient->submit($form);
             $this->assertSelectorExists('.alert-success');
-
         }
         // when
         $form = $crawler->selectButton('Skróć URL')->form([
@@ -96,7 +95,6 @@ class HomeControllerTest extends WebTestCase
 
         $this->httpClient->submit($form);
         $this->assertSelectorExists('.alert-danger');
-
     }
 
     /**

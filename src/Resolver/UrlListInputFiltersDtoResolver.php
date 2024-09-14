@@ -1,6 +1,6 @@
 <?php
 /**
- * UrlListInputFiltersDtoResolver
+ * UrlListInputFiltersDtoResolver.
  */
 
 namespace App\Resolver;

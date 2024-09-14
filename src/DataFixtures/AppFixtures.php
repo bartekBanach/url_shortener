@@ -1,7 +1,6 @@
 <?php
 /**
  * AppFixtures class.
- *
  */
 
 namespace App\DataFixtures;
@@ -18,8 +17,6 @@ class AppFixtures extends Fixture
      * Loads the fixtures into the database.
      *
      * @param ObjectManager $manager The object manager
-     *
-     * @return void
      */
     public function load(ObjectManager $manager): void
     {
