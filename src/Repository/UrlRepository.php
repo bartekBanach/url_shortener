@@ -97,6 +97,19 @@ class UrlRepository extends ServiceEntityRepository
         return $this->findOneBy(['shortUrl' => $shortUrl]);
     }
 
+
+    /**
+     * Find by id.
+     *
+     * @param string $id Id
+     *
+     * @return Url|null Url entity
+     */
+    public function findOneById(string $id): ?Url
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
+
     /**
      * Save entity.
      *

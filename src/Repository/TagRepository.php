@@ -44,7 +44,7 @@ class TagRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
-            ->select('partial tag.{id, title, createdAt, updatedAt}')
+            ->select('tag')
             ->orderBy('tag.updatedAt', 'DESC');
     }
 

@@ -57,9 +57,6 @@ class UrlType extends AbstractType
         $builder->get('tags')->addModelTransformer(
             $this->tagsDataTransformer
         );
-        $builder->add('submit', SubmitType::class, [
-            'label' => 'action.shorten_url',
-        ]);
     }
 
     /**

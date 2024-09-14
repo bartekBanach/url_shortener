@@ -107,6 +107,18 @@ class UrlService implements UrlServiceInterface
     }
 
     /**
+     * Find Url entity by Id.
+     *
+     * @param string $id Id
+     *
+     * @return Url|null Url entity
+     */
+    public function findOneById(string $id): ?Url
+    {
+        return $this->urlRepository->findOneById($id);
+    }
+
+    /**
      * Generate 7 characters short url code for new Url entity.
      *
      * @param string $longUrl Long url code

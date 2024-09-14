@@ -48,6 +48,16 @@ interface UrlServiceInterface
     public function findOneByShortUrl(string $shortUrl): ?Url;
 
     /**
+     * Find Url entity by Id.
+     *
+     * @param string $id Id
+     *
+     * @return Url|null Url entity
+     */
+    public function findOneById(string $id): ?Url;
+
+
+    /**
      * Get paginated list.
      *
      * @param int                    $page    Page number

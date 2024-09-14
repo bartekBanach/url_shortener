@@ -78,9 +78,8 @@ class HomeControllerTest extends WebTestCase
         static::getContainer()->get('cache.global_clearer')->clearPool('cache.rate_limiter'); // Reset rate limiter before test
         $this->httpClient->followRedirects();
         $crawler = $this->httpClient->request('GET', '/');
-        print_r($crawler->html());
         for ($i = 0; $i < 10; ++$i) {
-            $form = $crawler->selectButton('url_form_submit')->form([
+            $form = $crawler->selectButton('Skróć URL')->form([
                 'url_form[longUrl]' => 'https://example.com',
                 'url_form[tags]' => 'testTag1, testTag2',
             ]);
@@ -90,8 +89,7 @@ class HomeControllerTest extends WebTestCase
 
         }
         // when
-
-        $form = $crawler->selectButton('url_form_submit')->form([
+        $form = $crawler->selectButton('Skróć URL')->form([
             'url_form[longUrl]' => 'https://example.com',
             'url_form[tags]' => 'testTag1, testTag2',
         ]);
@@ -118,7 +116,7 @@ class HomeControllerTest extends WebTestCase
         $crawler = $this->httpClient->request('GET', '/');
 
         for ($i = 0; $i < 1; ++$i) {
-            $form = $crawler->selectButton('url_form_submit')->form([
+            $form = $crawler->selectButton('Skróć URL')->form([
                 'url_form[longUrl]' => 'https://example.com',
                 'url_form[tags]' => 'testTag1, testTag2',
             ]);
@@ -128,7 +126,7 @@ class HomeControllerTest extends WebTestCase
             // echo($response->getContent());
         }
         // when
-        $form = $crawler->selectButton('url_form_submit')->form([
+        $form = $crawler->selectButton('Skróć URL')->form([
             'url_form[longUrl]' => 'https://example.com',
             'url_form[tags]' => 'testTag1, testTag2',
         ]);
