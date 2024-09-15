@@ -1,7 +1,7 @@
 
-Found 0 of 45 files that can be fixed in 1.600 seconds, 18.00 MB memory used
+Found 0 of 45 files that can be fixed in 3.459 seconds, 18.00 MB memory used
 
-Found 0 of 10 files that can be fixed in 0.670 seconds, 18.00 MB memory used
+Found 0 of 10 files that can be fixed in 0.783 seconds, 18.00 MB memory used
  ------- -------- ---- ---------------------- 
  [32m State [39m [32m Domain [39m [32m Id [39m [32m Message Preview (en) [39m 
  ------- -------- ---- ---------------------- 
@@ -10,3 +10,24 @@ Found 0 of 10 files that can be fixed in 0.670 seconds, 18.00 MB memory used
  [32m State [39m [32m Domain [39m [32m Id [39m [32m Message Preview (pl) [39m [32m Fallback Message Preview (en) [39m 
  ------- -------- ---- ---------------------- ------------------------------- 
 
+[32m[notice] Migrating [39m[33mup[39m[32m to [39m[33mDoctrineMigrations\Version20240910002736[39m
+[32m[notice] finished in [39m[33m812.7[39m[32mms, used [39m[33m24M[39m[32m memory, [39m[33m5[39m[32m migrations executed, [39m[33m18[39m[32m sql queries[39m
+
+[30;42m                                                                                                                        [39;49m
+[30;42m [OK] Successfully migrated to version: DoctrineMigrations\Version20240910002736                                        [39;49m
+[30;42m                                                                                                                        [39;49m
+
+
+[32m[notice] Migrating [39m[33mup[39m[32m to [39m[33mDoctrineMigrations\Version20240910002736[39m
+[32m[notice] finished in [39m[33m660.4[39m[32mms, used [39m[33m24M[39m[32m memory, [39m[33m5[39m[32m migrations executed, [39m[33m18[39m[32m sql queries[39m
+
+[30;42m                                                                                                                        [39;49m
+[30;42m [OK] Successfully migrated to version: DoctrineMigrations\Version20240910002736                                        [39;49m
+[30;42m                                                                                                                        [39;49m
+
+
+   [33m>[39m [32mpurging database[39m
+   [33m>[39m [32mloading App\DataFixtures\AppFixtures[39m
+   [33m>[39m [32mloading App\DataFixtures\TagFixtures[39m
+   [33m>[39m [32mloading App\DataFixtures\UserFixtures[39m
+   [33m>[39m [32mloading App\DataFixtures\UrlFixtures[39m

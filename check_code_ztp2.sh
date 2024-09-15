@@ -34,7 +34,9 @@ echo "Running debug:translation..."
 echo "Running DB schema and data fixtures..."
 {
   ./bin/console doctrine:schema:drop --no-interaction --full-database --force
+  ./bin/console doctrine:schema:drop --env=test --no-interaction --full-database --force
   ./bin/console doctrine:migrations:migrate --no-interaction
+  ./bin/console doctrine:migrations:migrate --no-interaction --env=test
   ./bin/console doctrine:fixtures:load --no-interaction
 }  >> $RESULT_FILE
 
