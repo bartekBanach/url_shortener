@@ -1,5 +1,5 @@
 {% include 'default/_crud_show.html.twig' with {
-    page_title: 'title.url_details'|trans({'%id%': url.id|default('')}),
+    page_title: 'title.url_details',
     item: url,
     fields: ['id', 'longUrl', 'shortUrl', 'createdAt'],
     labels: {

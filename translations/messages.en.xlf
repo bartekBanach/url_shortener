@@ -282,6 +282,58 @@
             <target>User Details</target>
         </trans-unit>
 
+        <trans-unit id="title.login">
+            <source>title.login</source>
+            <target>Log in!</target>
+        </trans-unit>
+
+        <trans-unit id="message.logged_in_as">
+            <source>message.logged_in_as</source>
+            <target>You are logged in as %username%</target>
+        </trans-unit>
+
+        <trans-unit id="action.logout">
+            <source>action.logout</source>
+            <target>Logout</target>
+        </trans-unit>
+
+
+
+        <trans-unit id="label.remember_me">
+            <source>label.remember_me</source>
+            <target>Remember me</target>
+        </trans-unit>
+
+        <trans-unit id="action.sign_in">
+            <source>action.sign_in</source>
+            <target>Sign in</target>
+        </trans-unit>
+
+        <trans-unit id="label.role_user">
+            <source>label.role_user</source>
+            <target>User</target>
+        </trans-unit>
+        <trans-unit id="label.role_admin">
+            <source>label.role_admin</source>
+            <target>Admin</target>
+        </trans-unit>
+
+        <trans-unit id="title.register">
+            <source>title.register</source>
+            <target>Registration</target>
+        </trans-unit>
+
+        <trans-unit id="action.register">
+            <source>action.register</source>
+            <target>Register</target>
+        </trans-unit>
+
+        <trans-unit id="label.agree_terms">
+            <source>label.agree_terms</source>
+            <target>Agree terms</target>
+        </trans-unit>
+
+
     </body>
   </file>
 </xliff>

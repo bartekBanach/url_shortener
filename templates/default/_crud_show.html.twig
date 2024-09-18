@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ page_title|trans }}
+    {{ page_title }}
 {% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <h1 class="display-4 mb-4">{{ page_title|trans }}
+        <h1 class="display-4 mb-4">{{ page_title|trans}}
             {% if item is defined and item %}
                 #{{ item.id }}
             {% endif %}

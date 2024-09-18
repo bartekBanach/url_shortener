@@ -50,7 +50,7 @@
                         {% set fullUrl = absolute_url(path('home', {})) ~ shortCode %}
                         <a href="{{ fullUrl }}">{{ fullUrl }}</a>
                     </td>
-                    <td>{{ url[0].createdAt|date('Y/m/d') }}</td>
+                    <td>{{ url[0].createdAt|format_date('long' )}}</td>
                     <td>{{ url[0].clicks|length }}</td>
 
                     <td>

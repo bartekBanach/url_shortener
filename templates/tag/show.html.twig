@@ -1,5 +1,5 @@
 {% include 'default/_crud_show.html.twig' with {
-    page_title: 'title.tag_details'|trans({'%id%': tag.id|default('')}),
+    page_title: 'title.tag_details',
     item: tag,
     fields: ['id', 'title', 'createdAt', 'updatedAt'],
     labels: {

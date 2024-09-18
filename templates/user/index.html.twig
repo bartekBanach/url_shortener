@@ -8,13 +8,12 @@
     {% include 'admin/_admin_nav.html.twig' %}
     {% include 'default/_crud_list.html.twig' with {
         entity: 'user',
-        page_title: 'title.user_list'|trans,
+        page_title: 'title.user_list',
         pagination: pagination,
         columns: [
-            { 'label': 'label.id'|trans, 'field': 'id' },
-            { 'label': 'label.email'|trans, 'field': 'email' },
-            { 'label': 'label.password'|trans, 'field': 'password' },
-            { 'label': 'label.roles'|trans, 'field': 'roles' },
+            { 'label': 'label.id', 'field': 'id' },
+            { 'label': 'label.email', 'field': 'email' },
+            { 'label': 'label.roles', 'field': 'roles' },
         ],
         view_route: 'user_show',
         create_route: 'user_create',

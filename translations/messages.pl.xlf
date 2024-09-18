@@ -263,6 +263,62 @@
     <target>Nie znaleziono użytkownika</target>
 </trans-unit>
 
+<trans-unit id="title.login">
+    <source>title.login</source>
+    <target>Logowanie</target>
+</trans-unit>
+
+<trans-unit id="message.logged_in_as">
+    <source>message.logged_in_as</source>
+    <target>Jesteś zalogowany jako %username%</target>
+</trans-unit>
+
+<trans-unit id="action.logout">
+    <source>action.logout</source>
+    <target>Wyloguj</target>
+</trans-unit>
+
+<trans-unit id="title.sign_in">
+    <source>title.sign_in</source>
+    <target>Zaloguj się</target>
+</trans-unit>
+
+<trans-unit id="label.remember_me">
+    <source>label.remember_me</source>
+    <target>Zapamiętaj mnie</target>
+</trans-unit>
+
+<trans-unit id="action.sign_in">
+    <source>action.sign_in</source>
+    <target>Zaloguj się</target>
+</trans-unit>
+
+        <trans-unit id="label.role_user">
+            <source>label.role_user</source>
+            <target>Użytkownik</target>
+        </trans-unit>
+        <trans-unit id="label.role_admin">
+            <source>label.role_admin</source>
+            <target>Administrator</target>
+        </trans-unit>
+
+
+        <trans-unit id="title.register">
+            <source>title.register</source>
+            <target>Rejestracja</target>
+        </trans-unit>
+
+        <trans-unit id="action.register">
+            <source>action.register</source>
+            <target>Zarejestruj</target>
+        </trans-unit>
+
+        <trans-unit id="label.agree_terms">
+            <source>label.agree_terms</source>
+            <target>Akceptuję warunki</target>
+        </trans-unit>
+
+
     </body>
   </file>
 </xliff>

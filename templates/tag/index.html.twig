@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    {{ 'title.tag_list' | trans }}
+    {{ 'title.tag_list' }}
 {% endblock %}
 
 {% block body %}
@@ -11,13 +11,13 @@
 
 {% include 'default/_crud_list.html.twig' with {
     entity: 'tag',
-    page_title: 'title.tag_list'|trans,
+    page_title: 'title.tag_list',
     pagination: pagination,
     columns: [
-        { 'label': 'label.id'|trans, 'field': 'id' },
-        { 'label': 'label.title'|trans, 'field': 'title' },
-        { 'label': 'label.created_at'|trans, 'field': 'createdAt' },
-        { 'label': 'label.updated_at'|trans, 'field': 'updatedAt' },
+        { 'label': 'label.id', 'field': 'id' },
+        { 'label': 'label.title', 'field': 'title' },
+        { 'label': 'label.created_at', 'field': 'createdAt' },
+        { 'label': 'label.updated_at', 'field': 'updatedAt' },
     ],
     view_route: 'tag_show',
     create_route: 'tag_create',
