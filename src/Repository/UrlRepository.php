@@ -61,8 +61,13 @@ class UrlRepository extends ServiceEntityRepository
      */
     public function queryAll(UrlListFiltersDto $filters): QueryBuilder
     {
-        $queryBuilder = $this->getOrCreateQueryBuilder()
-            ->orderBy('url.createdAt', 'DESC');
+
+
+        $queryBuilder= $this->getOrCreateQueryBuilder()
+            ->select('url, author, tags, clicks')
+            ->leftJoin('url.author', 'author')
+            ->leftJoin('url.tags', 'tags')
+            ->leftJoin('url.clicks', 'clicks');
 
         return $this->applyFiltersToList($queryBuilder, $filters);
     }

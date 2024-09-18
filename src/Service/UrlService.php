@@ -57,10 +57,13 @@ class UrlService implements UrlServiceInterface
         $filters = $this->prepareFilters($filters);
         $queryBuilder = $author ? $this->urlRepository->queryByAuthor($author, $filters) : $this->urlRepository->queryAll($filters);
 
-        $queryBuilder->leftJoin('url.clicks', 'click')
+        /*$queryBuilder->leftJoin('url.clicks', 'click')
             ->addSelect('COUNT(click.id) AS clickCount')
             ->groupBy('url.id')
-            ->orderBy('url.createdAt', 'DESC'); // Ensure ordering as needed
+            ->orderBy('url.createdAt', 'DESC');*/
+
+        $queryBuilder->addSelect('(SELECT COUNT(click.id) FROM App\Entity\Click click WHERE click.url = url) AS clickCount');
+
 
         return $this->paginator->paginate(
             $queryBuilder,
