@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Class UserType.
@@ -38,20 +37,13 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'label.email',
                 'required' => true,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'user.email.not_blank',
-                    ]),
-                ],
+                'empty_data' => '',
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'label.password',
                 'required' => true,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'user.password.not_blank',
-                    ]),
-                ],
+                'empty_data' => '',
+
             ])
             ->add('isVerified', CheckboxType::class, [
                 'label' => 'label.is_verified',
