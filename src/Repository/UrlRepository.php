@@ -63,7 +63,7 @@ class UrlRepository extends ServiceEntityRepository
     {
 
 
-        $queryBuilder= $this->getOrCreateQueryBuilder()
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select('url, author, tags, clicks')
             ->leftJoin('url.author', 'author')
             ->leftJoin('url.tags', 'tags')

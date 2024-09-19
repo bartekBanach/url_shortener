@@ -82,7 +82,6 @@ class TagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->tagService->save($tag);
 
             $this->addFlash(
@@ -117,7 +116,6 @@ class TagController extends AbstractController
         );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->tagService->save($tag);
 
             $this->addFlash(
