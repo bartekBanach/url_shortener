@@ -2,7 +2,6 @@
 /**
  * Controller handling URL redirection and the main page with URL form.
  *
- * @license MIT License
  */
 
 namespace App\Controller;
@@ -108,13 +107,8 @@ class HomeController extends AbstractController
                 $this->translator->trans('message.created_successfully')
             );
 
-            return $this->redirectToRoute('home'); // Fixed redirect to return statement
+            return $this->redirectToRoute('home');
 
-            // This block is unreachable
-            // $url = new Url();
-            // $form = $this->createForm(UrlType::class, $url, [
-            //     'csrf_protection' => false, // for testing
-            // ]);
         }
 
         return $this->render('home/index.html.twig', [
