@@ -24,19 +24,23 @@ This Symfony-based URL Shortener application includes the following functionalit
    ```
 
 3. Set up your environment configuration:
-    - Update the database connection string in the `.env` file:
-      ```
-      DATABASE_URL="mysql://user:password@127.0.0.1:3306/database_name"
-      ```
-    - Set the Mailer DSN:
-      ```
-      MAILER_DSN=smtp://localhost
-      ```
+   - Create a `.env.local` file to override default values:
+     ```bash
+     cp .env .env.local
+     ```
+   - Update the database connection string in the `.env.local` file:
+     ```
+     DATABASE_URL="mysql://username:password@127.0.0.1:3306/database_name"
+     ```
+   - Set the Mailer DSN:
+     ```
+     MAILER_DSN=smtp://username:password@smtp.example.com:587?encryption=tls&auth_mode=login
+     ```
 
-    - For testing, update the database connection string in the `.env.test` file:
-      ```
-      DATABASE_URL="mysql://user:password@127.0.0.1:3306/test_database_name"
-      ```
+   - For testing, update the database connection string in the `.env.test` file:
+     ```
+     DATABASE_URL="mysql://username:password@127.0.0.1:3306/database_name"
+     ```
 
 4. Load the database schema:
    ```bash

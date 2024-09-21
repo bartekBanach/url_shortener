@@ -1,7 +1,6 @@
 <?php
 /**
  * Controller handling URL redirection and the main page with URL form.
- *
  */
 
 namespace App\Controller;
@@ -108,7 +107,6 @@ class HomeController extends AbstractController
             );
 
             return $this->redirectToRoute('home');
-
         }
 
         return $this->render('home/index.html.twig', [
